@@ -1,0 +1,21 @@
+{
+  "name": "kumbh-acharya",
+  "version": "1.0.0",
+  "description": "Kumbh Acharya - AI Spiritual Guide for Kumbh Mela pilgrims",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.1.0"
+  }
+}
