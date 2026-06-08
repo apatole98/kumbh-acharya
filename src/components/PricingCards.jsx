@@ -6,48 +6,46 @@ const PLANS = [
     id: 'free',
     title: 'FREE',
     price: '₹0',
-    period: '/month',
-    desc: 'Perfect for beginners',
-    badge: 'Popular for Beginners',
-    badgeColor: '#6b7280',
+    period: '/ forever',
+    sub: 'For the curious seeker',
     highlight: false,
+    badge: null,
     cta: 'Start Free',
+    ctaStyle: 'outline',
+    note: 'No credit card required',
     features: [
-      { label: '3 questions per day', ok: true },
-      { label: 'Hindi & English', ok: true },
-      { label: 'Basic spiritual guidance', ok: true },
-      { label: 'Kumbh Mela info', ok: true },
-      { label: 'Web access', ok: true },
-      { label: 'Unlimited questions', ok: false },
-      { label: 'All 5 languages', ok: false },
-      { label: 'Chat history', ok: false },
-      { label: 'Kundli analysis', ok: false },
-      { label: 'Priority support', ok: false },
+      { ok: true,  label: '3 Chats per day' },
+      { ok: true,  label: '5 Languages' },
+      { ok: true,  label: 'Basic Spiritual Guidance' },
+      { ok: true,  label: 'Instant Responses' },
+      { ok: false, label: 'Chat History' },
+      { ok: false, label: 'Ritual Scheduler' },
+      { ok: false, label: 'Daily Mantra' },
+      { ok: false, label: 'Advanced Features' },
     ],
   },
   {
     id: 'pro',
-    title: 'PRO ⭐',
+    title: '👑 PRO',
     price: '₹99',
-    period: '/month',
-    desc: 'Full spiritual journey',
-    badge: 'BEST VALUE',
-    badgeColor: '#8b5cf6',
+    period: '/ month',
+    sub: 'For dedicated spiritual seekers',
     highlight: true,
-    cta: 'Upgrade Now',
+    badge: 'MOST POPULAR',
+    cta: 'Upgrade to Pro',
+    ctaStyle: 'gold',
+    note: '14-day free trial',
     features: [
-      { label: 'Unlimited questions', ok: true },
-      { label: 'All 5 languages', ok: true },
-      { label: 'Advanced spiritual guidance', ok: true },
-      { label: 'Kumbh Mela info', ok: true },
-      { label: 'Chat history saved', ok: true },
-      { label: 'Vedic mantra library', ok: true },
-      { label: 'Ritual calendar', ok: true },
-      { label: 'Priority responses', ok: true },
-      { label: 'No daily limits', ok: true },
-      { label: 'Early access to features', ok: true },
-      { label: 'Kundli analysis', ok: true },
-      { label: 'Priority support', ok: true },
+      { ok: true, label: 'Unlimited Chats' },
+      { ok: true, label: '5 Languages' },
+      { ok: true, label: 'Priority Responses (2x faster)' },
+      { ok: true, label: 'Chat History & Search' },
+      { ok: true, label: 'Ritual Scheduler' },
+      { ok: true, label: 'Daily Mantra (6 AM)' },
+      { ok: true, label: 'Memory Feature' },
+      { ok: true, label: 'Advanced Responses' },
+      { ok: true, label: 'No Ads' },
+      { ok: true, label: 'Priority Support' },
     ],
   },
   {
@@ -55,27 +53,19 @@ const PLANS = [
     title: 'ONE-TIME',
     price: '₹10–₹999',
     period: '',
-    desc: 'Pay for what you need',
-    badge: 'Flexible',
-    badgeColor: '#d4af37',
+    sub: 'Pay as you go',
     highlight: false,
+    badge: null,
     cta: 'View All Plans',
+    ctaStyle: 'purple',
+    note: 'Flexible options for everyone',
     items: [
-      { price: '₹10', label: 'Single Chat' },
-      { price: '₹49', label: 'Kundli Analysis' },
-      { price: '₹299', label: '3-Month Bundle' },
-      { price: '₹999', label: '1-Year Bundle' },
+      { icon: '💬', label: 'Single Chat',    price: '₹10' },
+      { icon: '🔮', label: 'Kundli Analysis', price: '₹49' },
+      { icon: '📅', label: '3-Month Plan',   price: '₹299', save: 'Save ₹100' },
+      { icon: '⭐', label: '1-Year Plan',    price: '₹999', save: 'Save ₹300' },
     ],
-    features: [
-      { label: 'Pay per use', ok: true },
-      { label: 'No subscription', ok: true },
-      { label: 'Kundli analysis', ok: true },
-      { label: 'All languages', ok: true },
-      { label: 'Flexible credits', ok: true },
-      { label: 'Priority support', ok: false },
-      { label: 'Unlimited questions', ok: false },
-      { label: 'Early access', ok: false },
-    ],
+    features: [],
   },
 ]
 
@@ -86,76 +76,95 @@ export default function PricingCards({ onAction }) {
     <div style={{
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: '20px',
-      padding: '0 0 8px',
+      gap: '24px',
+      alignItems: 'start',
     }}>
-      {PLANS.map(plan => (
-        <div key={plan.id} style={{
-          backgroundColor: '#fff',
-          border: plan.highlight ? '2px solid #8b5cf6' : '1px solid #e5e7eb',
-          borderRadius: '16px',
-          padding: '24px',
-          position: 'relative',
-          animation: plan.highlight ? 'glow 3s ease-in-out infinite' : 'none',
-          transition: 'transform 0.2s, box-shadow 0.2s',
-          cursor: 'default',
-        }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.1)' }}
-          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
+      {PLANS.map((plan, idx) => (
+        <div
+          key={plan.id}
+          className={`pricing-card anim-fadeup-${idx} ${plan.highlight ? 'anim-float anim-glow' : ''}`}
+          style={{
+            backgroundColor: '#1a1f2e',
+            border: plan.highlight ? '2px solid #d4af37' : '1px solid #3a4557',
+            borderRadius: '18px',
+            padding: '28px 24px',
+            position: 'relative',
+          }}
         >
           {/* Badge */}
-          <div style={{
-            position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)',
-            backgroundColor: plan.badgeColor, color: '#fff',
-            borderRadius: '20px', padding: '3px 14px', fontSize: '11px', fontWeight: '700',
-            whiteSpace: 'nowrap',
-          }}>{plan.badge}</div>
+          {plan.badge && (
+            <div style={{
+              position: 'absolute', top: '-13px', left: '50%', transform: 'translateX(-50%)',
+              backgroundColor: '#d4af37', color: '#0f1419',
+              borderRadius: '20px', padding: '4px 16px',
+              fontSize: '11px', fontWeight: '800', letterSpacing: '1px', whiteSpace: 'nowrap',
+            }}>{plan.badge}</div>
+          )}
 
-          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-            <div style={{ fontSize: '15px', fontWeight: '700', color: plan.highlight ? '#8b5cf6' : '#1f2937', marginBottom: '8px' }}>{plan.title}</div>
-            <div style={{ fontSize: '32px', fontWeight: '800', color: '#1f2937' }}>
-              {plan.price}<span style={{ fontSize: '14px', fontWeight: '400', color: '#6b7280' }}>{plan.period}</span>
+          {/* Header */}
+          <div style={{ marginBottom: '20px' }}>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: plan.highlight ? '#d4af37' : '#cbd5e1', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '10px' }}>
+              {plan.title}
             </div>
-            <div style={{ color: '#6b7280', fontSize: '13px', marginTop: '4px' }}>{plan.desc}</div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+              <span style={{ fontSize: '36px', fontWeight: '800', color: '#fff', fontFamily: 'monospace' }}>{plan.price}</span>
+              <span style={{ fontSize: '14px', color: '#64748b' }}>{plan.period}</span>
+            </div>
+            <div style={{ color: '#94a3b8', fontSize: '13px', marginTop: '6px' }}>{plan.sub}</div>
+            {plan.id === 'pro' && (
+              <div style={{ marginTop: '8px', backgroundColor: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.3)', borderRadius: '6px', padding: '4px 10px', fontSize: '12px', color: '#d4af37', display: 'inline-block' }}>
+                💰 Save ₹300/year with annual plan
+              </div>
+            )}
           </div>
+
+          {/* Divider */}
+          <div style={{ height: '1px', backgroundColor: '#3a4557', marginBottom: '20px' }} />
 
           {/* One-time items */}
           {plan.items && (
-            <div style={{ backgroundColor: '#f9f5f0', borderRadius: '10px', padding: '12px', marginBottom: '16px' }}>
+            <div style={{ marginBottom: '20px' }}>
               {plan.items.map((item, i) => (
-                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', fontSize: '13px', borderBottom: i < plan.items.length - 1 ? '1px solid #e5e7eb' : 'none' }}>
-                  <span style={{ color: '#1f2937' }}>{item.label}</span>
-                  <span style={{ fontWeight: '700', color: '#8b5cf6' }}>{item.price}</span>
+                <div key={i} style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '10px 0', borderBottom: i < plan.items.length - 1 ? '1px solid #252d3d' : 'none',
+                }}>
+                  <span style={{ fontSize: '13px', color: '#cbd5e1' }}>{item.icon} {item.label}</span>
+                  <div style={{ textAlign: 'right' }}>
+                    <span style={{ fontSize: '14px', fontWeight: '700', color: '#d4af37', fontFamily: 'monospace' }}>{item.price}</span>
+                    {item.save && <div style={{ fontSize: '10px', color: '#10b981' }}>{item.save}</div>}
+                  </div>
                 </div>
               ))}
             </div>
           )}
 
           {/* Features list */}
-          <ul style={{ listStyle: 'none', marginBottom: '20px' }}>
-            {plan.features.map((f, i) => (
-              <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '5px 0', fontSize: '13px', color: f.ok ? '#1f2937' : '#9ca3af' }}>
-                <span>{f.ok ? '✅' : '❌'}</span>
-                {f.label}
-              </li>
-            ))}
-          </ul>
+          {plan.features.length > 0 && (
+            <ul style={{ listStyle: 'none', marginBottom: '24px' }}>
+              {plan.features.map((f, i) => (
+                <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '6px 0', fontSize: '13px', color: f.ok ? '#e2e8f0' : '#475569' }}>
+                  <span style={{ fontSize: '15px', flexShrink: 0 }}>{f.ok ? '✅' : '❌'}</span>
+                  {f.label}
+                </li>
+              ))}
+            </ul>
+          )}
 
+          {/* CTA */}
           <button
             onClick={() => onAction && onAction(plan.id)}
+            className={plan.ctaStyle === 'gold' ? 'cta-btn-gold' : 'cta-btn-outline'}
             style={{
-              width: '100%',
-              backgroundColor: plan.highlight ? '#8b5cf6' : plan.id === 'onetime' ? '#d4af37' : '#f3f0ff',
-              color: plan.highlight ? '#fff' : plan.id === 'onetime' ? '#fff' : '#8b5cf6',
-              border: 'none', borderRadius: '10px',
-              padding: '12px', fontSize: '14px', fontWeight: '700',
-              cursor: 'pointer', transition: 'background-color 0.2s',
+              width: '100%', border: 'none', borderRadius: '10px',
+              padding: '13px', fontSize: '14px', fontWeight: '700',
+              cursor: 'pointer', transition: 'all 0.2s', marginBottom: '8px',
+              ...(plan.ctaStyle === 'gold' && { backgroundColor: '#d4af37', color: '#0f1419' }),
+              ...(plan.ctaStyle === 'purple' && { backgroundColor: 'transparent', color: '#8b5cf6', border: '1px solid #8b5cf6' }),
+              ...(plan.ctaStyle === 'outline' && { backgroundColor: 'transparent', color: '#d4af37', border: '1px solid #d4af37' }),
             }}
-            onMouseEnter={e => e.currentTarget.style.filter = 'brightness(0.9)'}
-            onMouseLeave={e => e.currentTarget.style.filter = 'none'}
-          >
-            {plan.cta}
-          </button>
+          >{plan.cta}</button>
+          <div style={{ textAlign: 'center', fontSize: '12px', color: '#475569' }}>{plan.note}</div>
         </div>
       ))}
     </div>
