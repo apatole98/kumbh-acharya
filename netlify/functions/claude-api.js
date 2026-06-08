@@ -31,7 +31,7 @@ exports.handler = async (event) => {
 
   try {
     const response = await client.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-3-5-sonnet-latest',
       max_tokens: 500,
       system: systemPrompt || defaultSystem,
       messages: [{ role: 'user', content: message.trim() }],
