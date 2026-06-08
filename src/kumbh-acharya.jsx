@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useAuth } from './components/AuthContext.jsx'
 
 const FREE_CHAT_LIMIT = 3
 
@@ -271,7 +272,8 @@ const styles = {
   },
 }
 
-export default function KumbhAcharya() {
+export default function KumbhAcharya({ onProfile }) {
+  const { user, logout } = useAuth()
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [language, setLanguage] = useState('hindi')
@@ -288,7 +290,8 @@ export default function KumbhAcharya() {
     return parseInt(stored || '0', 10)
   })
   const [showPaywall, setShowPaywall] = useState(false)
-  const [isPaid, setIsPaid] = useState(() => localStorage.getItem('ka_paid') === 'true')
+  const [isPaid, setIsPaid] = useState(() => user?.isPro || localStorage.getItem('ka_paid') === 'true')
+  const [showUserMenu, setShowUserMenu] = useState(false)
   const messagesEndRef = useRef(null)
   const textareaRef = useRef(null)
   const msgIdRef = useRef(0)
@@ -399,18 +402,62 @@ export default function KumbhAcharya() {
               <span style={styles.titleSub}>Spiritual AI Guide</span>
             </div>
           </div>
-          <select
-            style={styles.langSelect}
-            value={language}
-            onChange={e => setLanguage(e.target.value)}
-            aria-label="Select language"
-          >
-            {LANGUAGES.map(l => (
-              <option key={l.code} value={l.code}>
-                {l.flag} {l.label}
-              </option>
-            ))}
-          </select>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <select
+              style={styles.langSelect}
+              value={language}
+              onChange={e => setLanguage(e.target.value)}
+              aria-label="Select language"
+            >
+              {LANGUAGES.map(l => (
+                <option key={l.code} value={l.code}>
+                  {l.flag} {l.label}
+                </option>
+              ))}
+            </select>
+            <div style={{ position: 'relative' }}>
+              <button
+                onClick={() => setShowUserMenu(m => !m)}
+                style={{
+                  backgroundColor: '#d4af37', color: '#1a1a4d',
+                  border: 'none', borderRadius: '50%',
+                  width: '34px', height: '34px', fontSize: '13px',
+                  fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit',
+                }}
+              >
+                {user?.name?.charAt(0).toUpperCase() || '?'}
+              </button>
+              {showUserMenu && (
+                <div style={{
+                  position: 'absolute', right: 0, top: '40px',
+                  backgroundColor: '#12124a', border: '1px solid rgba(212,175,55,0.4)',
+                  borderRadius: '10px', padding: '8px', minWidth: '150px', zIndex: 50,
+                }}>
+                  <div style={{ color: '#d4af37', fontSize: '13px', fontWeight: '600', padding: '4px 8px', marginBottom: '4px' }}>
+                    {user?.name}
+                    <span style={{
+                      backgroundColor: isPaid ? '#d4af37' : 'rgba(255,255,255,0.1)',
+                      color: isPaid ? '#1a1a4d' : 'rgba(255,255,255,0.5)',
+                      borderRadius: '6px', padding: '1px 6px', fontSize: '10px',
+                      fontWeight: '700', marginLeft: '6px',
+                    }}>{isPaid ? 'PRO' : 'FREE'}</span>
+                  </div>
+                  <button onClick={() => { setShowUserMenu(false); onProfile && onProfile() }} style={{
+                    display: 'block', width: '100%', textAlign: 'left',
+                    backgroundColor: 'transparent', color: '#fff', border: 'none',
+                    padding: '8px', fontSize: '13px', cursor: 'pointer',
+                    borderRadius: '6px', fontFamily: 'inherit',
+                  }}>👤 Profile</button>
+                  <button onClick={logout} style={{
+                    display: 'block', width: '100%', textAlign: 'left',
+                    backgroundColor: 'transparent', color: '#fca5a5', border: 'none',
+                    padding: '8px', fontSize: '13px', cursor: 'pointer',
+                    borderRadius: '6px', fontFamily: 'inherit',
+                  }}>🚪 Logout</button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Free tier counter */}
