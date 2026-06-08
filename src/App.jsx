@@ -1,6 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { AuthProvider, useAuth } from './components/AuthContext.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
 import KumbhAcharya from './kumbh-acharya.jsx'
 
+function AppRoutes() {
+  const { user, loading } = useAuth()
+  const [page, setPage] = useState('chat')
+
+  if (loading) {
+    return (
+      <div style={{
+        height: '100dvh', backgroundColor: '#1a1a4d',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        flexDirection: 'column', gap: '16px',
+        fontFamily: "'Segoe UI',Arial,sans-serif",
+      }}>
+        <div style={{ fontSize: '48px' }}>🕉</div>
+        <div style={{ color: '#d4af37', fontSize: '16px' }}>Loading...</div>
+      </div>
+    )
+  }
+
+  if (!user) return <LoginPage />
+
+  if (page === 'profile') return <ProfilePage onBack={() => setPage('chat')} />
+
+  return <KumbhAcharya onProfile={() => setPage('profile')} />
+}
+
 export default function App() {
-  return <KumbhAcharya />
+  return (
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
+  )
 }
