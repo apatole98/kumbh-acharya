@@ -1,8 +1,8 @@
-import Anthropic from '@anthropic-ai/sdk'
+const Anthropic = require('@anthropic-ai/sdk')
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) }
   }
@@ -23,7 +23,7 @@ export const handler = async (event) => {
   if (!process.env.ANTHROPIC_API_KEY) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'ANTHROPIC_API_KEY not configured. Please add it to Netlify environment variables.' }),
+      body: JSON.stringify({ error: 'ANTHROPIC_API_KEY not configured.' }),
     }
   }
 
@@ -37,8 +37,8 @@ export const handler = async (event) => {
       messages: [{ role: 'user', content: message.trim() }],
     })
 
-    const text = response.content[0]?.text || ''
-    const tokensUsed = response.usage?.input_tokens + response.usage?.output_tokens || 0
+    const text = response.content[0] && response.content[0].text ? response.content[0].text : ''
+    const tokensUsed = response.usage ? (response.usage.input_tokens + response.usage.output_tokens) : 0
 
     return {
       statusCode: 200,
