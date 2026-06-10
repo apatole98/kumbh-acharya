@@ -1,58 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../components/AuthContext.jsx'
 
-const s = {
-  page: { minHeight: '100dvh', backgroundColor: '#f8f6f1', fontFamily: "'Segoe UI','Noto Sans Devanagari',Arial,sans-serif" },
-  header: {
-    backgroundColor: '#fff', borderBottom: '1px solid #e5e7eb',
-    padding: '14px 16px', display: 'flex', alignItems: 'center', gap: '12px',
-    position: 'sticky', top: 0, zIndex: 10,
-  },
-  backBtn: {
-    backgroundColor: 'transparent', border: '1px solid #e5e7eb',
-    color: '#6b7280', borderRadius: '8px', padding: '6px 12px',
-    fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit',
-  },
-  headerTitle: { color: '#1f2937', fontSize: '17px', fontWeight: '700' },
-  body: { padding: '24px 16px', maxWidth: '480px', margin: '0 auto' },
-  avatar: {
-    width: '72px', height: '72px', borderRadius: '50%',
-    backgroundColor: '#8b5cf6', display: 'flex', alignItems: 'center',
-    justifyContent: 'center', fontSize: '26px', color: '#fff',
-    fontWeight: '700', margin: '0 auto 14px',
-  },
-  name: { textAlign: 'center', fontSize: '20px', fontWeight: '700', color: '#1f2937' },
-  badge: (isPro) => ({
-    display: 'block', textAlign: 'center', width: 'fit-content', margin: '6px auto 20px',
-    backgroundColor: isPro ? '#8b5cf6' : '#f3f4f6',
-    color: isPro ? '#fff' : '#6b7280',
-    borderRadius: '10px', padding: '3px 12px',
-    fontSize: '11px', fontWeight: '700',
-  }),
-  card: {
-    backgroundColor: '#fff', border: '1px solid #e5e7eb',
-    borderRadius: '14px', padding: '16px', marginBottom: '14px',
-  },
-  cardTitle: { color: '#8b5cf6', fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' },
-  infoRow: { display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f3f4f6' },
-  infoLabel: { color: '#6b7280', fontSize: '13px' },
-  infoValue: { color: '#1f2937', fontSize: '13px', fontWeight: '500' },
-  btn: (v) => ({
-    width: '100%', border: 'none', borderRadius: '10px', padding: '12px',
-    fontSize: '14px', fontWeight: '600', cursor: 'pointer', marginBottom: '10px', fontFamily: 'inherit',
-    backgroundColor: v === 'purple' ? '#8b5cf6' : v === 'red' ? '#fef2f2' : '#f9fafb',
-    color: v === 'purple' ? '#fff' : v === 'red' ? '#dc2626' : '#1f2937',
-  }),
-  input: {
-    width: '100%', backgroundColor: '#f9fafb', color: '#1f2937',
-    border: '1px solid #e5e7eb', borderRadius: '10px',
-    padding: '10px 14px', fontSize: '14px', outline: 'none',
-    marginBottom: '12px', boxSizing: 'border-box', fontFamily: 'inherit',
-  },
-  label: { color: '#374151', fontSize: '12px', fontWeight: '500', marginBottom: '5px', display: 'block' },
-  success: { color: '#16a34a', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px', padding: '10px', fontSize: '13px', textAlign: 'center', marginBottom: '10px' },
-}
-
 export default function ProfilePage({ onBack }) {
   const { user, logout, updateUser } = useAuth()
   const [editing, setEditing] = useState(false)
@@ -63,61 +11,142 @@ export default function ProfilePage({ onBack }) {
     if (!form.name.trim()) return
     updateUser({ name: form.name, phone: form.phone })
     setEditing(false); setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+    setTimeout(() => setSaved(false), 2500)
   }
 
   const initials = user?.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?'
 
   return (
-    <div style={s.page}>
-      <div style={s.header}>
-        <button style={s.backBtn} onClick={onBack}>← Back</button>
-        <span style={s.headerTitle}>My Profile</span>
+    <div style={{ minHeight: '100dvh', backgroundColor: '#0f1419', fontFamily: "'Segoe UI','Noto Sans Devanagari',Arial,sans-serif" }}>
+
+      {/* Header */}
+      <div style={{
+        backgroundColor: '#1a1f2e', borderBottom: '1px solid #334155',
+        padding: '14px 20px', display: 'flex', alignItems: 'center', gap: '12px',
+        position: 'sticky', top: 0, zIndex: 10,
+        backdropFilter: 'blur(12px)',
+      }}>
+        <button onClick={onBack} style={{
+          backgroundColor: 'transparent', border: '1px solid #3a4557',
+          color: '#94a3b8', borderRadius: '8px', padding: '6px 12px',
+          fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s',
+        }}
+          onMouseEnter={e => { e.currentTarget.style.color = '#d4af37'; e.currentTarget.style.borderColor = '#d4af37' }}
+          onMouseLeave={e => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = '#3a4557' }}>
+          ← Back
+        </button>
+        <span style={{ fontSize: '20px' }}>🕉</span>
+        <span style={{ color: '#e2e8f0', fontSize: '17px', fontWeight: '700' }}>My Profile</span>
       </div>
-      <div style={s.body}>
-        <div style={s.avatar}>{initials}</div>
-        <div style={s.name}>{user?.name}</div>
-        <div style={s.badge(user?.isPro)}>{user?.isPro ? '⭐ Pro Member' : '🆓 Free Plan'}</div>
 
-        {saved && <div style={s.success}>✅ Profile updated!</div>}
+      <div style={{ padding: '28px 20px', maxWidth: '480px', margin: '0 auto' }}>
 
-        <div style={s.card}>
-          <div style={s.cardTitle}>Account Details</div>
-          <div style={s.infoRow}><span style={s.infoLabel}>Email</span><span style={s.infoValue}>{user?.email}</span></div>
-          <div style={s.infoRow}><span style={s.infoLabel}>Phone</span><span style={s.infoValue}>{user?.phone || '—'}</span></div>
-          <div style={{ ...s.infoRow, borderBottom: 'none' }}>
-            <span style={s.infoLabel}>Member Since</span>
-            <span style={s.infoValue}>{user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-IN') : '—'}</span>
+        {/* Avatar + Name */}
+        <div className="au" style={{ textAlign: 'center', marginBottom: '28px' }}>
+          <div style={{
+            width: '80px', height: '80px', borderRadius: '50%',
+            background: 'linear-gradient(135deg, #8b5cf6, #d4af37)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '28px', color: '#fff', fontWeight: '800',
+            margin: '0 auto 14px',
+            boxShadow: '0 0 24px rgba(139,92,246,0.35)',
+          }}>{initials}</div>
+          <div style={{ fontSize: '20px', fontWeight: '800', color: '#fff', marginBottom: '6px' }}>{user?.name}</div>
+          <div style={{
+            display: 'inline-block',
+            backgroundColor: user?.isPro ? 'rgba(139,92,246,0.2)' : 'rgba(100,116,139,0.2)',
+            border: `1px solid ${user?.isPro ? 'rgba(139,92,246,0.5)' : '#334155'}`,
+            color: user?.isPro ? '#a78bfa' : '#64748b',
+            borderRadius: '20px', padding: '3px 14px',
+            fontSize: '12px', fontWeight: '700',
+          }}>
+            {user?.isPro ? '👑 Pro Member' : '🆓 Free Plan'}
           </div>
         </div>
 
-        <div style={s.card}>
-          <div style={s.cardTitle}>Subscription</div>
-          <div style={s.infoRow}><span style={s.infoLabel}>Plan</span><span style={s.infoValue}>{user?.isPro ? 'Pro — Unlimited' : 'Free — 3 chats/day'}</span></div>
-          <div style={{ ...s.infoRow, borderBottom: 'none' }}><span style={s.infoLabel}>Price</span><span style={s.infoValue}>{user?.isPro ? '₹99/month' : 'Free'}</span></div>
+        {saved && (
+          <div className="au" style={{
+            backgroundColor: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)',
+            color: '#34d399', borderRadius: '10px', padding: '12px 16px',
+            fontSize: '13px', textAlign: 'center', marginBottom: '16px',
+          }}>✅ Profile updated!</div>
+        )}
+
+        {/* Account Details */}
+        <div className="au1 card" style={{ marginBottom: '14px' }}>
+          <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>Account Details</div>
+          {[
+            { label: 'Email', value: user?.email },
+            { label: 'Phone', value: user?.phone || '—' },
+            { label: 'Member Since', value: user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-IN') : '—' },
+          ].map((row, i, arr) => (
+            <div key={row.label} style={{
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              padding: '10px 0',
+              borderBottom: i < arr.length - 1 ? '1px solid #252d3d' : 'none',
+            }}>
+              <span style={{ color: '#64748b', fontSize: '13px' }}>{row.label}</span>
+              <span style={{ color: '#e2e8f0', fontSize: '13px', fontWeight: '500' }}>{row.value}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Subscription */}
+        <div className="au2 card" style={{ marginBottom: '14px' }}>
+          <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>Subscription</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #252d3d' }}>
+            <span style={{ color: '#64748b', fontSize: '13px' }}>Plan</span>
+            <span style={{ color: '#e2e8f0', fontSize: '13px', fontWeight: '500' }}>{user?.isPro ? 'Pro — Unlimited' : 'Free — 3 chats/day'}</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: user?.isPro ? 'none' : '1px solid #252d3d' }}>
+            <span style={{ color: '#64748b', fontSize: '13px' }}>Price</span>
+            <span style={{ color: '#e2e8f0', fontSize: '13px', fontWeight: '500' }}>{user?.isPro ? '₹99/month' : 'Free'}</span>
+          </div>
           {!user?.isPro && (
-            <button style={{ ...s.btn('purple'), marginTop: '12px' }}
-              onClick={() => { updateUser({ isPro: true }); setSaved(true); setTimeout(() => setSaved(false), 2000) }}>
-              ⭐ Upgrade to Pro — ₹99/month
+            <button className="btn-gold" style={{ width: '100%', padding: '12px', fontSize: '14px', fontWeight: '800', marginTop: '14px' }}
+              onClick={() => { updateUser({ isPro: true }); setSaved(true); setTimeout(() => setSaved(false), 2500) }}>
+              👑 Upgrade to Pro — ₹99/month
             </button>
           )}
         </div>
 
+        {/* Edit Profile */}
         {editing ? (
-          <div style={s.card}>
-            <div style={s.cardTitle}>Edit Profile</div>
-            <label style={s.label}>Full Name</label>
-            <input style={s.input} value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
-            <label style={s.label}>Phone</label>
-            <input style={s.input} value={form.phone} maxLength={10} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
-            <button style={s.btn('purple')} onClick={handleSave}>💾 Save Changes</button>
-            <button style={s.btn('neutral')} onClick={() => setEditing(false)}>Cancel</button>
+          <div className="au card" style={{ marginBottom: '14px' }}>
+            <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>Edit Profile</div>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.8px', display: 'block', marginBottom: '6px' }}>FULL NAME</label>
+              <input className="input-field" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} style={{ padding: '11px 14px' }} />
+            </div>
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.8px', display: 'block', marginBottom: '6px' }}>PHONE</label>
+              <input className="input-field" value={form.phone} maxLength={10} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} style={{ padding: '11px 14px' }} />
+            </div>
+            <button className="btn-gold" style={{ width: '100%', padding: '12px', fontSize: '14px', fontWeight: '700', marginBottom: '8px' }} onClick={handleSave}>💾 Save Changes</button>
+            <button className="btn-outline" style={{ width: '100%', padding: '11px', fontSize: '14px' }} onClick={() => setEditing(false)}>Cancel</button>
           </div>
         ) : (
-          <button style={s.btn('neutral')} onClick={() => setEditing(true)}>✏️ Edit Profile</button>
+          <button className="btn-outline" style={{ width: '100%', padding: '12px', fontSize: '14px', fontWeight: '600', marginBottom: '10px' }} onClick={() => setEditing(true)}>
+            ✏️ Edit Profile
+          </button>
         )}
 
-        <button style={s.btn('red')} onClick={logout}>🚪 Logout</button>
+        {/* Logout */}
+        <button style={{
+          width: '100%', padding: '12px', backgroundColor: 'rgba(239,68,68,0.08)',
+          border: '1px solid rgba(239,68,68,0.25)', borderRadius: '10px',
+          color: '#f87171', fontSize: '14px', fontWeight: '600', cursor: 'pointer',
+          fontFamily: 'inherit', transition: 'all 0.2s',
+        }}
+          onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.15)' }}
+          onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.08)' }}
+          onClick={logout}>
+          🚪 Logout
+        </button>
+
+        <div style={{ textAlign: 'center', marginTop: '28px', color: '#334155', fontSize: '12px' }}>
+          🕉 Kumbh Acharya — © 2026
+        </div>
       </div>
     </div>
   )
