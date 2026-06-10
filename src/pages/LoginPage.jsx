@@ -1,58 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../components/AuthContext.jsx'
 
-const s = {
-  page: {
-    minHeight: '100dvh', backgroundColor: '#f8f6f1',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    padding: '20px', fontFamily: "'Segoe UI','Noto Sans Devanagari',Arial,sans-serif",
-  },
-  wrap: { width: '100%', maxWidth: '420px' },
-  card: {
-    backgroundColor: '#fff', border: '1px solid #e5e7eb',
-    borderRadius: '20px', padding: '32px 28px',
-    boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-  },
-  logo: { textAlign: 'center', marginBottom: '24px' },
-  logoIcon: { fontSize: '44px' },
-  logoTitle: { color: '#8b5cf6', fontSize: '22px', fontWeight: '800', marginTop: '8px' },
-  logoSub: { color: '#6b7280', fontSize: '13px', marginTop: '4px' },
-  tabs: { display: 'flex', marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #e5e7eb' },
-  tab: (active) => ({
-    flex: 1, padding: '10px', textAlign: 'center', fontSize: '14px', fontWeight: '600',
-    cursor: 'pointer', border: 'none', fontFamily: 'inherit',
-    backgroundColor: active ? '#8b5cf6' : 'transparent',
-    color: active ? '#fff' : '#6b7280',
-    transition: 'all 0.2s',
-  }),
-  label: { color: '#374151', fontSize: '13px', fontWeight: '500', marginBottom: '6px', display: 'block' },
-  input: {
-    width: '100%', backgroundColor: '#f9fafb', color: '#1f2937',
-    border: '1px solid #e5e7eb', borderRadius: '10px',
-    padding: '11px 14px', fontSize: '14px', outline: 'none',
-    marginBottom: '16px', boxSizing: 'border-box', fontFamily: 'inherit',
-    transition: 'border-color 0.2s',
-  },
-  btn: {
-    width: '100%', backgroundColor: '#8b5cf6', color: '#fff',
-    border: 'none', borderRadius: '10px', padding: '13px',
-    fontSize: '15px', fontWeight: '700', cursor: 'pointer',
-    marginTop: '4px', fontFamily: 'inherit', transition: 'background-color 0.2s',
-  },
-  error: {
-    backgroundColor: '#fef2f2', border: '1px solid #fecaca',
-    color: '#dc2626', borderRadius: '8px', padding: '10px 14px',
-    fontSize: '13px', marginBottom: '16px',
-  },
-  success: {
-    backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0',
-    color: '#16a34a', borderRadius: '8px', padding: '10px 14px',
-    fontSize: '13px', marginBottom: '16px',
-  },
-  link: { color: '#8b5cf6', fontSize: '13px', textAlign: 'center', marginTop: '16px', cursor: 'pointer', fontWeight: '500' },
-  featuresLink: { textAlign: 'center', marginTop: '16px' },
-}
-
 function validate(tab, form) {
   if (tab === 'signup') {
     if (!form.name.trim()) return 'Name is required'
@@ -100,72 +48,140 @@ export default function LoginPage({ onFeatures }) {
   }
 
   return (
-    <div style={s.page}>
-      <div style={s.wrap}>
-        <div style={s.card}>
-          <div style={s.logo}>
-            <div style={s.logoIcon}>🕉</div>
-            <div style={s.logoTitle}>कुंभ आचार्य</div>
-            <div style={s.logoSub}>AI Spiritual Guide for Kumbh Mela</div>
+    <div style={{
+      minHeight: '100dvh', backgroundColor: '#0f1419',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      padding: '24px', fontFamily: "'Segoe UI','Noto Sans Devanagari',Arial,sans-serif",
+      position: 'relative', overflow: 'hidden',
+    }}>
+      {/* Background glows */}
+      <div style={{ position: 'absolute', top: '-120px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(ellipse, rgba(139,92,246,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '-80px', right: '-80px', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(212,175,55,0.05) 0%, transparent 65%)', pointerEvents: 'none' }} />
+
+      {/* Card */}
+      <div className="au" style={{
+        width: '100%', maxWidth: '420px', position: 'relative',
+        backgroundColor: '#1a1f2e', borderRadius: '20px',
+        border: '1px solid #334155',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+        overflow: 'hidden',
+      }}>
+        {/* Gold top bar */}
+        <div style={{ height: '3px', background: 'linear-gradient(to right, #8b5cf6, #d4af37, #8b5cf6)' }} />
+
+        <div style={{ padding: '40px 36px 36px' }}>
+          {/* Logo */}
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <div className="afl" style={{ fontSize: '44px', marginBottom: '12px', display: 'inline-block' }}>🕉</div>
+            <div style={{ fontWeight: '800', fontSize: '22px', color: '#d4af37', letterSpacing: '-0.3px' }}>कुंभ आचार्य</div>
+            <div style={{ color: '#64748b', fontSize: '13px', marginTop: '6px' }}>AI Spiritual Guide for Kumbh Mela</div>
+            <div style={{ height: '2px', width: '48px', background: 'linear-gradient(to right, #d4af37, transparent)', margin: '14px auto 0', borderRadius: '2px' }} />
           </div>
 
-          <div style={s.tabs}>
-            <button style={s.tab(tab === 'login')} onClick={() => switchTab('login')}>Login</button>
-            <button style={s.tab(tab === 'signup')} onClick={() => switchTab('signup')}>Sign Up</button>
+          {/* Toggle */}
+          <div style={{
+            display: 'flex', backgroundColor: '#252d3d', borderRadius: '12px',
+            padding: '4px', marginBottom: '28px', gap: '4px',
+          }}>
+            {['login', 'signup'].map(m => (
+              <button key={m} onClick={() => switchTab(m)} style={{
+                flex: 1, padding: '9px', borderRadius: '9px', border: 'none', cursor: 'pointer',
+                fontSize: '13px', fontWeight: '700', transition: 'all 0.2s', fontFamily: 'inherit',
+                backgroundColor: tab === m ? '#d4af37' : 'transparent',
+                color: tab === m ? '#0f1419' : '#64748b',
+              }}>
+                {m === 'login' ? '🔑 Login' : '✨ Sign Up'}
+              </button>
+            ))}
           </div>
 
-          {error && <div style={s.error}>⚠️ {error}</div>}
-          {success && <div style={s.success}>✅ {success}</div>}
+          {error && (
+            <div style={{
+              backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
+              borderRadius: '8px', padding: '10px 14px',
+              color: '#f87171', fontSize: '13px', marginBottom: '16px',
+              animation: 'fadeIn 0.2s ease',
+            }}>⚠️ {error}</div>
+          )}
+          {success && (
+            <div style={{
+              backgroundColor: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)',
+              borderRadius: '8px', padding: '10px 14px',
+              color: '#34d399', fontSize: '13px', marginBottom: '16px',
+              animation: 'fadeIn 0.2s ease',
+            }}>✅ {success}</div>
+          )}
 
-          <form onSubmit={handleSubmit}>
+          {/* Form */}
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {tab === 'signup' && (
               <>
-                <label style={s.label}>Full Name</label>
-                <input style={s.input} placeholder="Anurag Patole" value={form.name} onChange={set('name')}
-                  onFocus={e => e.target.style.borderColor = '#8b5cf6'}
-                  onBlur={e => e.target.style.borderColor = '#e5e7eb'} />
-                <label style={s.label}>Email</label>
-                <input style={s.input} type="email" placeholder="you@email.com" value={form.email} onChange={set('email')}
-                  onFocus={e => e.target.style.borderColor = '#8b5cf6'}
-                  onBlur={e => e.target.style.borderColor = '#e5e7eb'} />
-                <label style={s.label}>Phone (10 digits)</label>
-                <input style={s.input} type="tel" placeholder="9876543210" maxLength={10} value={form.phone} onChange={set('phone')}
-                  onFocus={e => e.target.style.borderColor = '#8b5cf6'}
-                  onBlur={e => e.target.style.borderColor = '#e5e7eb'} />
+                <div>
+                  <label style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.8px', display: 'block', marginBottom: '6px' }}>FULL NAME</label>
+                  <input className="input-field" type="text" placeholder="Anurag Patole" value={form.name} onChange={set('name')} style={{ padding: '12px 14px' }} />
+                </div>
+                <div>
+                  <label style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.8px', display: 'block', marginBottom: '6px' }}>EMAIL</label>
+                  <input className="input-field" type="email" placeholder="you@email.com" value={form.email} onChange={set('email')} style={{ padding: '12px 14px' }} />
+                </div>
+                <div>
+                  <label style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.8px', display: 'block', marginBottom: '6px' }}>PHONE (10 digits)</label>
+                  <input className="input-field" type="tel" placeholder="9876543210" maxLength={10} value={form.phone} onChange={set('phone')} style={{ padding: '12px 14px' }} />
+                </div>
               </>
             )}
             {tab === 'login' && (
-              <>
-                <label style={s.label}>Email or Phone</label>
-                <input style={s.input} placeholder="you@email.com or 9876543210" value={form.emailOrPhone} onChange={set('emailOrPhone')}
-                  onFocus={e => e.target.style.borderColor = '#8b5cf6'}
-                  onBlur={e => e.target.style.borderColor = '#e5e7eb'} />
-              </>
+              <div>
+                <label style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.8px', display: 'block', marginBottom: '6px' }}>EMAIL OR PHONE</label>
+                <input className="input-field" placeholder="you@email.com or 9876543210" value={form.emailOrPhone} onChange={set('emailOrPhone')} style={{ padding: '12px 14px' }} />
+              </div>
             )}
-            <label style={s.label}>Password {tab === 'signup' && <span style={{ color: '#9ca3af', fontWeight: '400' }}>(min 8 chars)</span>}</label>
-            <input style={s.input} type="password" placeholder="••••••••" value={form.password} onChange={set('password')}
-              onFocus={e => e.target.style.borderColor = '#8b5cf6'}
-              onBlur={e => e.target.style.borderColor = '#e5e7eb'} />
+            <div>
+              <label style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.8px', display: 'block', marginBottom: '6px' }}>
+                PASSWORD {tab === 'signup' && <span style={{ color: '#475569', fontWeight: '400' }}>(min 8 chars)</span>}
+              </label>
+              <input className="input-field" type="password" placeholder="••••••••" value={form.password} onChange={set('password')} style={{ padding: '12px 14px' }} />
+            </div>
 
-            <button style={s.btn} type="submit" disabled={loading}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = '#7c3aed'}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = '#8b5cf6'}>
-              {loading ? '⏳ Please wait...' : tab === 'login' ? '🙏 Login' : '🙏 Create Account'}
+            <button type="submit" disabled={loading} className="btn-gold" style={{ padding: '14px', fontSize: '15px', fontWeight: '800', marginTop: '4px', opacity: loading ? 0.7 : 1 }}>
+              {loading ? '⏳ Please wait...' : tab === 'login' ? '🙏 Enter Sanctum' : '✨ Begin Journey'}
             </button>
           </form>
 
-          <div style={s.link} onClick={() => switchTab(tab === 'login' ? 'signup' : 'login')}>
-            {tab === 'login' ? "Don't have an account? Sign Up →" : 'Already have an account? Login →'}
+          {/* Switch link */}
+          <div style={{ textAlign: 'center', marginTop: '18px', color: '#64748b', fontSize: '13px', cursor: 'pointer' }}
+            onClick={() => switchTab(tab === 'login' ? 'signup' : 'login')}>
+            {tab === 'login'
+              ? <span>No account? <span style={{ color: '#d4af37', fontWeight: '600' }}>Sign Up →</span></span>
+              : <span>Already registered? <span style={{ color: '#d4af37', fontWeight: '600' }}>Login →</span></span>
+            }
           </div>
-        </div>
 
-        {onFeatures && (
-          <div style={s.featuresLink}>
-            <span onClick={onFeatures} style={{ color: '#8b5cf6', fontSize: '13px', cursor: 'pointer', fontWeight: '500' }}>
-              View Features & Pricing →
-            </span>
+          {/* Divider */}
+          <div style={{ margin: '18px 0', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ flex: 1, height: '1px', backgroundColor: '#334155' }} />
+            <span style={{ color: '#475569', fontSize: '12px' }}>or</span>
+            <div style={{ flex: 1, height: '1px', backgroundColor: '#334155' }} />
           </div>
-        )}
+
+          {/* Features link */}
+          {onFeatures && (
+            <button onClick={onFeatures} style={{
+              width: '100%', padding: '12px', backgroundColor: 'transparent',
+              border: '1px solid rgba(212,175,55,0.3)', borderRadius: '10px',
+              color: '#d4af37', fontSize: '13px', fontWeight: '600', cursor: 'pointer',
+              transition: 'all 0.2s', fontFamily: 'inherit',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.08)'; e.currentTarget.style.borderColor = '#d4af37' }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.3)' }}>
+              💎 View Plans & Features
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="au" style={{ marginTop: '24px', color: '#334155', fontSize: '12px', textAlign: 'center' }}>
+        🕉 Spreading Dharma through AI &nbsp;·&nbsp; © 2026 Kumbh Acharya
       </div>
     </div>
   )
