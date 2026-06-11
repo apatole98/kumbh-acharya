@@ -15,7 +15,7 @@ function validate(tab, form) {
 }
 
 export default function LoginPage({ onFeatures }) {
-  const { signup, login } = useAuth()
+  const { signup, login, demoLogin } = useAuth()
   const [tab, setTab] = useState('login')
   const [form, setForm] = useState({ name: '', email: '', phone: '', emailOrPhone: '', password: '' })
   const [error, setError] = useState('')
@@ -163,6 +163,29 @@ export default function LoginPage({ onFeatures }) {
             <span style={{ color: '#475569', fontSize: '12px' }}>or</span>
             <div style={{ flex: 1, height: '1px', backgroundColor: '#334155' }} />
           </div>
+
+          {/* DEMO LOGIN */}
+          <div style={{ margin: '18px 0', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ flex: 1, height: '1px', backgroundColor: '#334155' }} />
+            <span style={{ color: '#475569', fontSize: '12px' }}>quick access</span>
+            <div style={{ flex: 1, height: '1px', backgroundColor: '#334155' }} />
+          </div>
+
+          <button onClick={demoLogin} style={{
+            width: '100%', padding: '14px', marginBottom: '10px',
+            background: 'linear-gradient(135deg, #1a1228, #252d3d)',
+            border: '1px solid rgba(139,92,246,0.5)', borderRadius: '12px',
+            cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+          }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = '#a78bfa'; e.currentTarget.style.background = 'linear-gradient(135deg,#1a1228,#2d2050)' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(139,92,246,0.5)'; e.currentTarget.style.background = 'linear-gradient(135deg,#1a1228,#252d3d)' }}>
+            <div style={{ textAlign: 'left' }}>
+              <div style={{ color: '#a78bfa', fontSize: '13px', fontWeight: '800' }}>🧪 Try Demo Account</div>
+              <div style={{ color: '#64748b', fontSize: '11px', marginTop: '2px' }}>Pro • 1250 pts • 12-day streak • 6 badges</div>
+            </div>
+            <span style={{ color: '#8b5cf6', fontSize: '18px' }}>→</span>
+          </button>
 
           {/* Features link */}
           {onFeatures && (
