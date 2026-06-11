@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { useAuth } from '../components/AuthContext.jsx'
+import { useGamification, ALL_BADGES, RARITY_COLORS } from '../context/GamificationContext.jsx'
+import BottomNav from '../components/BottomNav.jsx'
 
-export default function ProfilePage({ onBack }) {
+export default function ProfilePage({ onBack, onNav }) {
   const { user, logout, updateUser } = useAuth()
+  const { gami } = useGamification()
   const [editing, setEditing] = useState(false)
   const [form, setForm] = useState({ name: user?.name || '', phone: user?.phone || '' })
   const [saved, setSaved] = useState(false)
@@ -15,76 +18,86 @@ export default function ProfilePage({ onBack }) {
   }
 
   const initials = user?.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?'
+  const pts     = gami?.points?.total    || 0
+  const streak  = gami?.streak?.current  || 0
+  const myBadges = ALL_BADGES.filter(b => (gami?.badges || []).includes(b.id))
 
   return (
-    <div style={{ minHeight: '100dvh', backgroundColor: '#0f1419', fontFamily: "'Segoe UI','Noto Sans Devanagari',Arial,sans-serif" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', backgroundColor: '#0f1419', fontFamily: "'Segoe UI','Noto Sans Devanagari',Arial,sans-serif" }}>
 
       {/* Header */}
-      <div style={{
-        backgroundColor: '#1a1f2e', borderBottom: '1px solid #334155',
-        padding: '14px 20px', display: 'flex', alignItems: 'center', gap: '12px',
-        position: 'sticky', top: 0, zIndex: 10,
-        backdropFilter: 'blur(12px)',
-      }}>
-        <button onClick={onBack} style={{
-          backgroundColor: 'transparent', border: '1px solid #3a4557',
-          color: '#94a3b8', borderRadius: '8px', padding: '6px 12px',
-          fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s',
-        }}
+      <div style={{ backgroundColor: '#1a1f2e', borderBottom: '1px solid #334155', padding: '14px 20px', display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+        <button onClick={onBack} style={{ backgroundColor: 'transparent', border: '1px solid #334155', color: '#94a3b8', borderRadius: '8px', padding: '6px 12px', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}
           onMouseEnter={e => { e.currentTarget.style.color = '#d4af37'; e.currentTarget.style.borderColor = '#d4af37' }}
-          onMouseLeave={e => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = '#3a4557' }}>
+          onMouseLeave={e => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = '#334155' }}>
           ← Back
         </button>
         <span style={{ fontSize: '20px' }}>🕉</span>
         <span style={{ color: '#e2e8f0', fontSize: '17px', fontWeight: '700' }}>My Profile</span>
       </div>
 
-      <div style={{ padding: '28px 20px', maxWidth: '480px', margin: '0 auto' }}>
+      {/* Scrollable Body */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '24px 20px' }}>
 
         {/* Avatar + Name */}
-        <div className="au" style={{ textAlign: 'center', marginBottom: '28px' }}>
-          <div style={{
-            width: '80px', height: '80px', borderRadius: '50%',
-            background: 'linear-gradient(135deg, #8b5cf6, #d4af37)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '28px', color: '#fff', fontWeight: '800',
-            margin: '0 auto 14px',
-            boxShadow: '0 0 24px rgba(139,92,246,0.35)',
-          }}>{initials}</div>
+        <div className="au" style={{ textAlign: 'center', marginBottom: '24px' }}>
+          <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'linear-gradient(135deg,#8b5cf6,#d4af37)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px', color: '#fff', fontWeight: '800', margin: '0 auto 12px', boxShadow: '0 0 24px rgba(139,92,246,0.35)' }}>
+            {initials}
+          </div>
           <div style={{ fontSize: '20px', fontWeight: '800', color: '#fff', marginBottom: '6px' }}>{user?.name}</div>
-          <div style={{
-            display: 'inline-block',
-            backgroundColor: user?.isPro ? 'rgba(139,92,246,0.2)' : 'rgba(100,116,139,0.2)',
-            border: `1px solid ${user?.isPro ? 'rgba(139,92,246,0.5)' : '#334155'}`,
-            color: user?.isPro ? '#a78bfa' : '#64748b',
-            borderRadius: '20px', padding: '3px 14px',
-            fontSize: '12px', fontWeight: '700',
-          }}>
+          <div style={{ display: 'inline-block', backgroundColor: user?.isPro ? 'rgba(212,175,55,0.15)' : 'rgba(100,116,139,0.2)', border: `1px solid ${user?.isPro ? 'rgba(212,175,55,0.5)' : '#334155'}`, color: user?.isPro ? '#d4af37' : '#64748b', borderRadius: '20px', padding: '3px 14px', fontSize: '12px', fontWeight: '700' }}>
             {user?.isPro ? '👑 Pro Member' : '🆓 Free Plan'}
           </div>
         </div>
 
         {saved && (
-          <div className="au" style={{
-            backgroundColor: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)',
-            color: '#34d399', borderRadius: '10px', padding: '12px 16px',
-            fontSize: '13px', textAlign: 'center', marginBottom: '16px',
-          }}>✅ Profile updated!</div>
+          <div className="au" style={{ backgroundColor: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', color: '#34d399', borderRadius: '10px', padding: '12px 16px', fontSize: '13px', textAlign: 'center', marginBottom: '16px' }}>
+            ✅ Profile updated!
+          </div>
+        )}
+
+        {/* Stats Row */}
+        <div className="au1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', marginBottom: '16px' }}>
+          {[
+            { icon: '💎', value: pts.toLocaleString(), label: 'Points' },
+            { icon: '🔥', value: streak,                label: 'Streak' },
+            { icon: '🏅', value: myBadges.length,       label: 'Badges' },
+          ].map(s => (
+            <div key={s.label} style={{ backgroundColor: '#1a1f2e', border: '1px solid #334155', borderRadius: '12px', padding: '14px 10px', textAlign: 'center' }}>
+              <div style={{ fontSize: '20px', marginBottom: '4px' }}>{s.icon}</div>
+              <div style={{ color: '#d4af37', fontSize: '18px', fontWeight: '800', marginBottom: '2px' }}>{s.value}</div>
+              <div style={{ color: '#64748b', fontSize: '10px', fontWeight: '600' }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Badges Preview */}
+        {myBadges.length > 0 && (
+          <div className="au2 card" style={{ marginBottom: '14px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700', letterSpacing: '1px' }}>MY BADGES</div>
+              <button onClick={() => onNav?.('badges')} style={{ backgroundColor: 'transparent', border: 'none', color: '#64748b', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit' }}>See all →</button>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              {myBadges.slice(0, 5).map(b => (
+                <div key={b.id} style={{ backgroundColor: `${RARITY_COLORS[b.rarity]}20`, border: `1px solid ${RARITY_COLORS[b.rarity]}40`, borderRadius: '10px', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  <span style={{ fontSize: '16px' }}>{b.icon}</span>
+                  <span style={{ color: RARITY_COLORS[b.rarity], fontSize: '11px', fontWeight: '700' }}>{b.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Account Details */}
-        <div className="au1 card" style={{ marginBottom: '14px' }}>
+        <div className="au2 card" style={{ marginBottom: '14px' }}>
           <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>Account Details</div>
           {[
-            { label: 'Email', value: user?.email },
-            { label: 'Phone', value: user?.phone || '—' },
+            { label: 'Email',        value: user?.email },
+            { label: 'Phone',        value: user?.phone || '—' },
             { label: 'Member Since', value: user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-IN') : '—' },
           ].map((row, i, arr) => (
-            <div key={row.label} style={{
-              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-              padding: '10px 0',
-              borderBottom: i < arr.length - 1 ? '1px solid #252d3d' : 'none',
-            }}>
+            <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: i < arr.length - 1 ? '1px solid #252d3d' : 'none' }}>
               <span style={{ color: '#64748b', fontSize: '13px' }}>{row.label}</span>
               <span style={{ color: '#e2e8f0', fontSize: '13px', fontWeight: '500' }}>{row.value}</span>
             </div>
@@ -92,7 +105,7 @@ export default function ProfilePage({ onBack }) {
         </div>
 
         {/* Subscription */}
-        <div className="au2 card" style={{ marginBottom: '14px' }}>
+        <div className="card" style={{ marginBottom: '14px' }}>
           <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>Subscription</div>
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #252d3d' }}>
             <span style={{ color: '#64748b', fontSize: '13px' }}>Plan</span>
@@ -132,22 +145,17 @@ export default function ProfilePage({ onBack }) {
         )}
 
         {/* Logout */}
-        <button style={{
-          width: '100%', padding: '12px', backgroundColor: 'rgba(239,68,68,0.08)',
-          border: '1px solid rgba(239,68,68,0.25)', borderRadius: '10px',
-          color: '#f87171', fontSize: '14px', fontWeight: '600', cursor: 'pointer',
-          fontFamily: 'inherit', transition: 'all 0.2s',
-        }}
-          onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.15)' }}
-          onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.08)' }}
+        <button style={{ width: '100%', padding: '12px', backgroundColor: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: '10px', color: '#f87171', fontSize: '14px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s', marginBottom: '8px' }}
+          onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.15)'}
+          onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.08)'}
           onClick={logout}>
           🚪 Logout
         </button>
 
-        <div style={{ textAlign: 'center', marginTop: '28px', color: '#334155', fontSize: '12px' }}>
-          🕉 Kumbh Acharya — © 2026
-        </div>
+        <div style={{ textAlign: 'center', color: '#334155', fontSize: '12px', marginTop: '12px' }}>🕉 Kumbh Acharya — © 2026</div>
       </div>
+
+      <BottomNav page="profile" onNav={onNav} />
     </div>
   )
 }
