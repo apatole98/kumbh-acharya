@@ -106,6 +106,159 @@ const CHIPS = {
   bengali:  ['🕉 আজকের শুভ মন্ত্র', '🌊 শাহী স্নান 2027', '📿 গোদাবরী মন্ত্র', '🗺 নাশিক কীভাবে যাবেন?', '🔱 ত্র্যম্বকেশ্বর দর্শন'],
 }
 
+// ── Time slots: brahma(4-6), pratah(6-12), madhyahna(12-16), sandhya(16-19), ratri(19-28)
+function getTimeSlot() {
+  const h = new Date().getHours()
+  if (h >= 4  && h < 6)  return 'brahma'
+  if (h >= 6  && h < 12) return 'pratah'
+  if (h >= 12 && h < 16) return 'madhyahna'
+  if (h >= 16 && h < 19) return 'sandhya'
+  return 'ratri'
+}
+
+const TIME_DATA = {
+  brahma: {
+    label:   { hindi: 'ब्रह्म मुहूर्त', english: 'Brahma Muhurta', marathi: 'ब्रह्म मुहूर्त', gujarati: 'બ્રહ્મ મુહૂર્ત', bengali: 'ব্রহ্ম মুহূর্ত' },
+    emoji:   '🌙',
+    color:   '#6366f1',
+    mantra:  'ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्',
+    mantraName: { hindi: 'गायत्री मंत्र', english: 'Gayatri Mantra', marathi: 'गायत्री मंत्र', gujarati: 'ગાયત્રી મંત્ર', bengali: 'গায়ত্রী মন্ত্র' },
+    tip: {
+      hindi:    '🌙 ब्रह्म मुहूर्त (4–6 AM) — सबसे पवित्र समय। गोदावरी स्नान का सर्वोत्तम काल।',
+      english:  '🌙 Brahma Muhurta (4–6 AM) — the holiest time of day. Best for Godavari snan and meditation.',
+      marathi:  '🌙 ब्रह्म मुहूर्त (4–6 AM) — दिवसातील सर्वात पवित्र वेळ। गोदावरी स्नानासाठी सर्वोत्तम।',
+      gujarati: '🌙 બ્રહ્મ મુહૂર્ત (4–6 AM) — સૌથી પવિત્ર સમય. ગોદાવરી સ્નાન માટે શ્રેષ્ઠ.',
+      bengali:  '🌙 ব্রহ্ম মুহূর্ত (4–6 AM) — সবচেয়ে পবিত্র সময়। গোদাবরী স্নানের সেরা সময়।',
+    },
+    chips: {
+      hindi:    ['🌙 ब्रह्म मुहूर्त स्नान विधि', '📿 प्रातः गायत्री जाप', '🔱 त्र्यंबकेश्वर अभिषेक', '🌊 शाही स्नान तिथि', '🗺 नासिक कैसे पहुंचें?'],
+      english:  ['🌙 Brahma Muhurta snan ritual', '📿 Morning Gayatri chanting', '🔱 Trimbakeshwar abhishek', '🌊 Shahi Snan 2027 dates', '🗺 How to reach Nashik?'],
+      marathi:  ['🌙 ब्रह्म मुहूर्त स्नान विधी', '📿 सकाळी गायत्री जप', '🔱 त्र्यंबकेश्वर अभिषेक', '🌊 शाही स्नान तारखा', '🗺 नाशिकला कसे जायचे?'],
+      gujarati: ['🌙 બ્રહ્મ મુહૂર્ત સ્નાન', '📿 ગાયત્રી જાપ', '🔱 ત્ર્યંબકેશ્વર અભિષેક', '🌊 શાહી સ્નાન 2027', '🗺 નાશિક કેવી રીતે?'],
+      bengali:  ['🌙 ব্রহ্ম মুহূর্ত স্নান', '📿 গায়ত্রী জপ', '🔱 ত্র্যম্বকেশ্বর অভিষেক', '🌊 শাহী স্নান 2027', '🗺 নাশিক কীভাবে যাবেন?'],
+    },
+    welcome: {
+      hindi:    '🙏 ॐ — ब्रह्म मुहूर्त में स्वागत है। यह स्नान, ध्यान और मंत्र जाप का सर्वोत्तम समय है। पूछें।',
+      english:  '🙏 Om — Welcome in the sacred Brahma Muhurta. The best time for snan, meditation, and mantra. How may I guide you?',
+      marathi:  '🙏 ॐ — ब्रह्म मुहूर्तात स्वागत आहे. स्नान, ध्यान आणि मंत्र जपाची सर्वोत्तम वेळ.',
+      gujarati: '🙏 ૐ — બ્રહ્મ મુહૂર્તમાં સ્વાગત. સ્નાન, ધ્યાન અને મંત્ર જાપ માટે સર્વોત્તમ સમય.',
+      bengali:  '🙏 ওঁ — ব্রহ্ম মুহূর্তে স্বাগত। স্নান, ধ্যান ও মন্ত্র জপের সেরা সময়।',
+    },
+  },
+  pratah: {
+    label:   { hindi: 'प्रातःकाल', english: 'Morning', marathi: 'सकाळ', gujarati: 'સવાર', bengali: 'প্রভাত' },
+    emoji:   '🌅',
+    color:   '#f59e0b',
+    mantra:  'ॐ सूर्याय नमः',
+    mantraName: { hindi: 'सूर्य मंत्र', english: 'Surya Mantra', marathi: 'सूर्य मंत्र', gujarati: 'સૂર્ય મંત્ર', bengali: 'সূর্য মন্ত্র' },
+    tip: {
+      hindi:    '🌅 प्रातःकाल — सूर्य नमस्कार, गोदावरी आरती और राम दर्शन (पंचवटी) का समय।',
+      english:  '🌅 Morning — time for Surya Namaskar, Godavari aarti, and Rama darshan at Panchavati.',
+      marathi:  '🌅 सकाळ — सूर्य नमस्कार, गोदावरी आरती आणि पंचवटीत राम दर्शनाची वेळ.',
+      gujarati: '🌅 સવાર — સૂર્ય નમસ્કાર, ગોદાવરી આરતી અને રામ દર્શન.',
+      bengali:  '🌅 প্রভাত — সূর্য নমস্কার, গোদাবরী আরতি ও পঞ্চবটীতে রাম দর্শনের সময়।',
+    },
+    chips: {
+      hindi:    ['🌅 सूर्य नमस्कार मंत्र', '🏛 रामकुंड स्नान विधि', '📿 गोदावरी मंत्र बताएं', '🌊 शाही स्नान कब है?', '🗺 पंचवटी दर्शन गाइड'],
+      english:  ['🌅 Surya Namaskar mantra', '🏛 Ramkund snan ritual', '📿 Godavari mantra', '🌊 Shahi Snan 2027 dates', '🗺 Panchavati darshan guide'],
+      marathi:  ['🌅 सूर्य नमस्कार मंत्र', '🏛 रामकुंड स्नान विधी', '📿 गोदावरी मंत्र', '🌊 शाही स्नान तारखा', '🗺 पंचवटी दर्शन'],
+      gujarati: ['🌅 સૂર્ય નમસ્કાર', '🏛 રામકુંડ સ્નાન', '📿 ગોદાવરી મંત્ર', '🌊 શાહી સ્નાન 2027', '🗺 પંચવટી દર્શન'],
+      bengali:  ['🌅 সূর্য নমস্কার মন্ত্র', '🏛 রামকুণ্ড স্নান', '📿 গোদাবরী মন্ত্র', '🌊 শাহী স্নান 2027', '🗺 পঞ্চবটী দর্শন'],
+    },
+    welcome: {
+      hindi:    '🙏 जय गोदावरी माँ! शुभ प्रभात। रामकुंड स्नान और पंचवटी दर्शन का उत्तम समय है। क्या जानना चाहते हैं?',
+      english:  '🙏 Jai Godavari Maa! Good morning. Auspicious time for Ramkund snan and Panchavati darshan. How may I guide you?',
+      marathi:  '🙏 जय गोदावरी माई! शुभ प्रभात. रामकुंड स्नान आणि पंचवटी दर्शनाची उत्तम वेळ.',
+      gujarati: '🙏 જય ગોદાવરી માઁ! શુભ પ્રભાત. રામકુંડ સ્નાન અને પંચવટી દર્શન માટે ઉત્તમ સમય.',
+      bengali:  '🙏 জয় গোদাবরী মাঁ! শুভ প্রভাত। রামকুণ্ড স্নান ও পঞ্চবটী দর্শনের উত্তম সময়।',
+    },
+  },
+  madhyahna: {
+    label:   { hindi: 'मध्याह्न', english: 'Afternoon', marathi: 'दुपार', gujarati: 'બપોર', bengali: 'দুপুর' },
+    emoji:   '☀️',
+    color:   '#d4af37',
+    mantra:  'ॐ त्र्यम्बकाय नमः',
+    mantraName: { hindi: 'त्र्यंबकेश्वर मंत्र', english: 'Trimbakeshwar Mantra', marathi: 'त्र्यंबकेश्वर मंत्र', gujarati: 'ત્ર્યંબકેશ્વર મંત્ર', bengali: 'ত্র্যম্বকেশ্বর মন্ত্র' },
+    tip: {
+      hindi:    '☀️ मध्याह्न — त्र्यंबकेश्वर ज्योतिर्लिंग दर्शन, ब्रह्मगिरी ट्रेक और तर्पण का उत्तम समय।',
+      english:  '☀️ Afternoon — ideal for Trimbakeshwar Jyotirlinga darshan, Brahmagiri trek, and Tarpan rituals.',
+      marathi:  '☀️ दुपार — त्र्यंबकेश्वर ज्योतिर्लिंग दर्शन, ब्रह्मगिरी ट्रेक आणि तर्पण विधीसाठी उत्तम.',
+      gujarati: '☀️ બપોર — ત્ર્યંબકેશ્વર જ્યોતિર્લિંગ દર્શન અને ત્ર્પણ માટે ઉત્તમ.',
+      bengali:  '☀️ দুপুর — ত্র্যম্বকেশ্বর জ্যোতির্লিঙ্গ দর্শন, ব্রহ্মগিরি ট্রেক এবং তর্পণের সময়।',
+    },
+    chips: {
+      hindi:    ['☀️ तर्पण विधि बताएं', '🔱 त्र्यंबकेश्वर का महत्व', '⛰ ब्रह्मगिरी ट्रेक गाइड', '📿 महामृत्युंजय मंत्र', '🌊 शाही स्नान तिथि 2027'],
+      english:  ['☀️ How to do Tarpan', '🔱 Trimbakeshwar significance', '⛰ Brahmagiri trek guide', '📿 Mahamrityunjaya mantra', '🌊 Shahi Snan 2027 dates'],
+      marathi:  ['☀️ तर्पण विधी', '🔱 त्र्यंबकेश्वर महत्व', '⛰ ब्रह्मगिरी ट्रेक', '📿 महामृत्युंजय मंत्र', '🌊 शाही स्नान 2027'],
+      gujarati: ['☀️ તર્પણ વિધિ', '🔱 ત્ર્યંબકેશ્વર', '⛰ બ્રહ્મગિરી ટ્રેક', '📿 મહામૃત્યુંજય', '🌊 શાહી સ્નાન 2027'],
+      bengali:  ['☀️ তর্পণ বিধি', '🔱 ত্র্যম্বকেশ্বর', '⛰ ব্রহ্মগিরি ট্রেক', '📿 মহামৃত্যুঞ্জয় মন্ত্র', '🌊 শাহী স্নান 2027'],
+    },
+    welcome: {
+      hindi:    '🙏 जय गोदावरी माँ! शुभ दोपहर। त्र्यंबकेश्वर दर्शन और तर्पण का उत्तम समय है। पूछें।',
+      english:  '🙏 Jai Godavari Maa! Good afternoon. Ideal time for Trimbakeshwar darshan and Tarpan. How may I guide you?',
+      marathi:  '🙏 जय गोदावरी माई! शुभ दुपार. त्र्यंबकेश्वर दर्शन आणि तर्पणाची उत्तम वेळ.',
+      gujarati: '🙏 જય ગોદાવરી માઁ! શુભ બપોર. ત્ર્યંબકેશ્વર દર્શન અને તર્પણ માટે ઉત્તમ.',
+      bengali:  '🙏 জয় গোদাবরী মাঁ! শুভ অপরাহ্ন। ত্র্যম্বকেশ্বর দর্শন ও তর্পণের উত্তম সময়।',
+    },
+  },
+  sandhya: {
+    label:   { hindi: 'संध्याकाल', english: 'Sandhya (Evening)', marathi: 'संध्याकाळ', gujarati: 'સંધ્યા', bengali: 'সন্ধ্যা' },
+    emoji:   '🌆',
+    color:   '#f97316',
+    mantra:  'ॐ नमो गोदावर्यै नमः',
+    mantraName: { hindi: 'गोदावरी आरती मंत्र', english: 'Godavari Aarti Mantra', marathi: 'गोदावरी आरती मंत्र', gujarati: 'ગોદાવરી આરતી મંત્ર', bengali: 'গোদাবরী আরতি মন্ত্র' },
+    tip: {
+      hindi:    '🌆 संध्याकाल — गोदावरी घाट पर दीपदान और संध्या आरती का समय। दीये जलाएं और प्रार्थना करें।',
+      english:  '🌆 Sandhya time — Godavari ghat Deepdan and evening aarti. Light diyas and offer prayers.',
+      marathi:  '🌆 संध्याकाळ — गोदावरी घाटावर दीपदान आणि संध्या आरतीची वेळ.',
+      gujarati: '🌆 સંધ્યા — ગોદાવરી ઘાટ પર દીપદાન અને સંધ્યા આરતીનો સમય.',
+      bengali:  '🌆 সন্ধ্যা — গোদাবরী ঘাটে দীপদান ও সন্ধ্যা আরতির সময়।',
+    },
+    chips: {
+      hindi:    ['🌆 संध्या आरती कहाँ होती है?', '🪔 दीपदान विधि बताएं', '📿 संध्या वंदन मंत्र', '🌊 शाही स्नान तिथि', '🔱 सीता गुफा दर्शन'],
+      english:  ['🌆 Where is Sandhya aarti?', '🪔 Deepdan ritual guide', '📿 Sandhya Vandanam mantra', '🌊 Shahi Snan 2027', '🔱 Sita Gupha darshan'],
+      marathi:  ['🌆 संध्या आरती कुठे होते?', '🪔 दीपदान विधी', '📿 संध्या वंदन मंत्र', '🌊 शाही स्नान 2027', '🔱 सीता गुफा'],
+      gujarati: ['🌆 સંધ્યા આરતી ક્યાં?', '🪔 દીપદાન', '📿 સંધ્યા વંદન', '🌊 શાહી સ્નાન 2027', '🔱 સીતા ગુફા'],
+      bengali:  ['🌆 সন্ধ্যা আরতি কোথায়?', '🪔 দীপদান বিধি', '📿 সন্ধ্যা বন্দনা', '🌊 শাহী স্নান 2027', '🔱 সীতা গুহা'],
+    },
+    welcome: {
+      hindi:    '🙏 जय गोदावरी माँ! शुभ संध्या। गोदावरी आरती और दीपदान का समय। क्या जानना चाहते हैं?',
+      english:  '🙏 Jai Godavari Maa! Blessed Sandhya. Time for Godavari aarti and deepdan. How may I guide you?',
+      marathi:  '🙏 जय गोदावरी माई! शुभ संध्याकाळ. गोदावरी आरती आणि दीपदानाची वेळ.',
+      gujarati: '🙏 જય ગોદાવરી માઁ! શુભ સંધ્યા. ગોદાવરી આરતી અને દીપદાનનો સમય.',
+      bengali:  '🙏 জয় গোদাবরী মাঁ! শুভ সন্ধ্যা। গোদাবরী আরতি ও দীপদানের সময়।',
+    },
+  },
+  ratri: {
+    label:   { hindi: 'रात्रि', english: 'Night', marathi: 'रात्र', gujarati: 'રાત', bengali: 'রাত্রি' },
+    emoji:   '🌕',
+    color:   '#8b5cf6',
+    mantra:  'ॐ नमः शिवाय',
+    mantraName: { hindi: 'शिव पंचाक्षर मंत्र', english: 'Shiva Panchakshara', marathi: 'शिव पंचाक्षर', gujarati: 'શિવ પંચાક્ષર', bengali: 'শিব পঞ্চাক্ষর' },
+    tip: {
+      hindi:    '🌕 रात्रि — शिव का समय। महामृत्युंजय और ॐ नमः शिवाय जाप से रात्रि की रक्षा होती है।',
+      english:  '🌕 Night — sacred time of Lord Shiva. Chanting Mahamrityunjaya and Om Namah Shivaya brings divine protection.',
+      marathi:  '🌕 रात्र — शिवाची वेळ. महामृत्युंजय आणि ॐ नमः शिवाय जपाने रात्रीची रक्षा होते.',
+      gujarati: '🌕 રાત — શિવનો સમય. મહામૃત્યુંજય અને ૐ નમઃ શિવાય જાપ.',
+      bengali:  '🌕 রাত্রি — শিবের সময়। মহামৃত্যুঞ্জয় ও ওঁ নমঃ শিবায় জপে রাত্রির রক্ষা।',
+    },
+    chips: {
+      hindi:    ['🌕 रात्रि का शिव मंत्र', '📿 महामृत्युंजय जाप विधि', '🔱 त्र्यंबकेश्वर रात्रि पूजा', '🌊 अगला शाही स्नान कब?', '😴 शयन मंत्र बताएं'],
+      english:  ['🌕 Night Shiva mantra', '📿 Mahamrityunjaya chanting', '🔱 Trimbakeshwar night puja', '🌊 Next Shahi Snan date', '😴 Bedtime prayer mantra'],
+      marathi:  ['🌕 रात्रीचा शिव मंत्र', '📿 महामृत्युंजय जप', '🔱 त्र्यंबकेश्वर रात्री पूजा', '🌊 पुढील शाही स्नान', '😴 शयन मंत्र'],
+      gujarati: ['🌕 રાત્રિ શિવ મંત્ર', '📿 મહામૃત્યુંજય', '🔱 ત્ર્યંબકેશ્વર રાત્રિ', '🌊 શાહી સ્નાન 2027', '😴 શયન મંત્ર'],
+      bengali:  ['🌕 রাত্রির শিব মন্ত্র', '📿 মহামৃত্যুঞ্জয় জপ', '🔱 ত্র্যম্বকেশ্বর রাত্রি', '🌊 শাহী স্নান 2027', '😴 শয়ন মন্ত্র'],
+    },
+    welcome: {
+      hindi:    '🙏 ॐ नमः शिवाय। शुभ रात्रि। शिव का समय है — मंत्र जाप और ध्यान से रात्रि पावन होती है।',
+      english:  '🙏 Om Namah Shivaya. Good night. Sacred time of Lord Shiva — mantra chanting and meditation bless the night.',
+      marathi:  '🙏 ॐ नमः शिवाय. शुभ रात्र. शिवाची वेळ — मंत्र जप आणि ध्यानाने रात्र पावन होते.',
+      gujarati: '🙏 ૐ નમઃ શિવાય. શુભ રાત. શિવનો સમય — મંત્ર જાપ અને ધ્યાન.',
+      bengali:  '🙏 ওঁ নমঃ শিবায়। শুভ রাত্রি। শিবের সময় — মন্ত্র জপ ও ধ্যানে রাত পবিত্র হয়।',
+    },
+  },
+}
+
 let _id = 0
 const uid = () => ++_id
 
@@ -126,10 +279,12 @@ export default function KumbhAcharya({ onNav }) {
     if (d !== today) { localStorage.setItem('ka_chats_date', today); localStorage.setItem('ka_chats_used', '0'); return 0 }
     return parseInt(localStorage.getItem('ka_chats_used') || '0', 10)
   })
-  const endRef = useRef(null)
-  const taRef  = useRef(null)
+  const endRef   = useRef(null)
+  const taRef    = useRef(null)
+  const timeSlot = getTimeSlot()
+  const td       = TIME_DATA[timeSlot]
 
-  useEffect(() => { setMsgs([{ id: uid(), role: 'bot', text: WELCOME[lang] }]) }, [lang])
+  useEffect(() => { setMsgs([{ id: uid(), role: 'bot', text: td.welcome[lang] }]) }, [lang])
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs, loading])
 
   useEffect(() => {
@@ -162,7 +317,7 @@ export default function KumbhAcharya({ onNav }) {
     try {
       const res  = await fetch('/api/claude-api', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, language: lang, systemPrompt: SYS[lang], userId: user?.userId || 'guest' }),
+        body: JSON.stringify({ message: text, language: lang, systemPrompt: SYS[lang], timeSlot, userId: user?.userId || 'guest' }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
@@ -187,7 +342,7 @@ export default function KumbhAcharya({ onNav }) {
       trackChat?.(lang, text)
       fetch('/api/claude-api', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, language: lang, systemPrompt: SYS[lang], userId: user?.userId || 'guest' }),
+        body: JSON.stringify({ message: text, language: lang, systemPrompt: SYS[lang], timeSlot, userId: user?.userId || 'guest' }),
       }).then(r => r.json()).then(data => {
         setMsgs(p => [...p, { id: uid(), role: 'bot', text: data.response || '' }])
       }).catch(() => {
@@ -302,6 +457,22 @@ export default function KumbhAcharya({ onNav }) {
         </div>
       )}
 
+      {/* ═══ MANTRA OF THE MOMENT ═══ */}
+      <div style={{ background: `linear-gradient(90deg, rgba(${td.color === '#d4af37' ? '212,175,55' : td.color === '#f59e0b' ? '245,158,11' : td.color === '#f97316' ? '249,115,22' : td.color === '#8b5cf6' ? '139,92,246' : td.color === '#6366f1' ? '99,102,241' : '139,92,246'},0.12) 0%, transparent 100%)`, borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '9px 16px', display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+        <span style={{ fontSize: '16px', flexShrink: 0 }}>{td.emoji}</span>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ color: td.color, fontSize: '10px', fontWeight: '700', letterSpacing: '0.8px', marginBottom: '2px' }}>
+            {td.label[lang].toUpperCase()} · {td.mantraName[lang]}
+          </div>
+          <div style={{ color: '#e2e8f0', fontSize: '12px', fontStyle: 'italic', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {td.mantra}
+          </div>
+        </div>
+        <button onClick={() => sendChip(td.tip[lang])} style={{ flexShrink: 0, backgroundColor: `${td.color}18`, border: `1px solid ${td.color}40`, borderRadius: '8px', padding: '4px 9px', color: td.color, fontSize: '10px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>
+          {lang === 'english' ? 'GUIDE' : 'जानें'}
+        </button>
+      </div>
+
       {/* ═══ MESSAGES ═══ */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
         {msgs.map((m, i) => (
@@ -322,7 +493,7 @@ export default function KumbhAcharya({ onNav }) {
               {lang === 'english' ? 'QUICK QUESTIONS' : 'त्वरित प्रश्न'}
             </div>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {CHIPS[lang].map((chip, i) => (
+              {td.chips[lang].map((chip, i) => (
                 <button key={i} onClick={() => sendChip(chip)}
                   style={{ backgroundColor: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.25)', borderRadius: '20px', padding: '7px 13px', color: '#d4af37', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms', whiteSpace: 'nowrap' }}
                   onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.18)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.5)' }}
