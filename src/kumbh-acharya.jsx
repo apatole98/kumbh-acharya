@@ -166,8 +166,8 @@ export default function KumbhAcharya({ onNav }) {
       if (!res.ok) throw new Error(data.error)
       setMsgs(p => [...p, { id: uid(), role: 'bot', text: data.response }])
 
-    } catch {
-      setMsgs(p => [...p, { id: uid(), role: 'bot', text: lang === 'english' ? '🙏 Sorry, there was a connection problem. Please try again.' : '🙏 क्षमा करें, कनेक्शन में समस्या है।' }])
+    } catch (err) {
+      setMsgs(p => [...p, { id: uid(), role: 'bot', text: `⚠️ Error: ${err.message}` }])
     } finally { setLoading(false) }
   }, [input, loading, isPaid, chatsUsed, lang, user, trackChat])
 
