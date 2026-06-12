@@ -1,12 +1,60 @@
 import React, { useState } from 'react'
 
 const FEATURES = [
-  { icon: '🧠', title: 'Memory Saver', desc: 'Turn your spiritual journey into AI-generated stories and a shareable digital album.', eta: 'Next Month' },
-  { icon: '🎁', title: 'Referral Program', desc: 'Earn free Pro days by inviting friends. Spread dharma, get rewarded.', eta: 'Q2 2026' },
-  { icon: '📅', title: 'Ritual Calendar', desc: 'Personalized auspicious dates, Kumbh snan timings, and festival reminders.', eta: 'Q2 2026' },
-  { icon: '👥', title: 'Community Forum', desc: 'Connect with thousands of pilgrims and seekers from across India.', eta: 'Q3 2026' },
-  { icon: '🎓', title: 'Vedic Learning', desc: 'Structured courses on Vedic texts, Sanskrit mantras, and ancient philosophy.', eta: 'Q3 2026' },
-  { icon: '💬', title: 'Live Chat Support', desc: 'Chat with real pandits and certified spiritual advisors for personal guidance.', eta: 'Q4 2026' },
+  {
+    icon: '📅',
+    title: 'Ritual Calendar',
+    desc: 'Personalized auspicious dates for your location — Kumbh Shahi Snan timings, Ekadashi, Pradosh, Purnima, and all major festival reminders with push notifications.',
+    eta: 'Q2 2026',
+  },
+  {
+    icon: '🧠',
+    title: 'Spiritual Memory',
+    desc: 'Kumbh Acharya remembers your past conversations, your preferred rituals, and your spiritual goals — giving you deeply personalized guidance that grows with you.',
+    eta: 'Q2 2026',
+  },
+  {
+    icon: '🔔',
+    title: 'Daily Mantra Notifications',
+    desc: 'Receive a sacred mantra every morning at 6 AM (Brahma Muhurta). Each mantra includes full Sanskrit text, transliteration, meaning, and chanting instructions.',
+    eta: 'Next Month',
+  },
+  {
+    icon: '🔭',
+    title: 'Kundli & Jyotish Analysis',
+    desc: 'Enter your birth details and receive your Vedic birth chart analysis — planetary positions, doshas (Mangal, Kaal Sarp, Pitru), and remedies recommended by Kumbh Acharya.',
+    eta: 'Q2 2026',
+  },
+  {
+    icon: '👥',
+    title: 'Pilgrim Community',
+    desc: 'Connect with thousands of Kumbh pilgrims and spiritual seekers from across India. Share experiences, seek travel companions, and post snan photos from Sangam.',
+    eta: 'Q3 2026',
+  },
+  {
+    icon: '🎓',
+    title: 'Vedic Learning Paths',
+    desc: 'Structured courses on Vedic texts (Upanishads, Bhagavad Gita, Ramayana), Sanskrit mantra pronunciation, and daily spiritual practices — from beginner to advanced.',
+    eta: 'Q3 2026',
+  },
+  {
+    icon: '🗺',
+    title: 'Kumbh Navigation Map',
+    desc: 'Interactive offline map of Kumbh Mela grounds — all 13 Akhara camps, ghats, parking zones, medical camps, lost & found, and safest routes to Triveni Sangam.',
+    eta: 'Q3 2026',
+  },
+  {
+    icon: '💬',
+    title: 'Live Pandit Consultations',
+    desc: 'Book a real-time video or chat session with verified Vedic pandits and certified spiritual advisors for Kundli reading, marriage muhurat, or personal guidance.',
+    eta: 'Q4 2026',
+  },
+  {
+    icon: '🎁',
+    title: 'Dharma Referral Program',
+    desc: 'Earn free Pro days by inviting friends and family. Each referral earns you 7 days of Pro access. Share the Kumbh wisdom — spread dharma, get rewarded.',
+    eta: 'Q2 2026',
+  },
 ]
 
 export default function ComingSoonGrid() {
