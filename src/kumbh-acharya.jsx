@@ -158,13 +158,14 @@ export default function KumbhAcharya({ onNav }) {
     trackChat?.(lang, text)
 
     try {
-      const res  = await fetch('/.netlify/functions/claude-api', {
+      const res  = await fetch('/api/claude-api', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, language: lang, systemPrompt: SYS[lang], userId: user?.userId || 'guest' }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
       setMsgs(p => [...p, { id: uid(), role: 'bot', text: data.response }])
+
     } catch {
       setMsgs(p => [...p, { id: uid(), role: 'bot', text: lang === 'english' ? '🙏 Sorry, there was a connection problem. Please try again.' : '🙏 क्षमा करें, कनेक्शन में समस्या है।' }])
     } finally { setLoading(false) }
@@ -182,7 +183,7 @@ export default function KumbhAcharya({ onNav }) {
       setChatsUsed(newUsed)
       localStorage.setItem('ka_chats_used', String(newUsed))
       trackChat?.(lang, text)
-      fetch('/.netlify/functions/claude-api', {
+      fetch('/api/claude-api', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, language: lang, systemPrompt: SYS[lang], userId: user?.userId || 'guest' }),
       }).then(r => r.json()).then(data => {
