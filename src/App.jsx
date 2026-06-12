@@ -18,7 +18,7 @@ import KumbhAcharya     from './kumbh-acharya.jsx'
 
 function AppRoutes() {
   const { user, loading } = useAuth()
-  const [page, setPage]   = useState('chat')
+  const [page, setPage]   = useState('landing')
   const [postId, setPostId] = useState(null)
 
   const nav = (to, data) => { setPage(to); if (data?.postId) setPostId(data.postId) }
@@ -36,6 +36,7 @@ function AppRoutes() {
     return <ImmersiveLanding onLogin={() => setPage('login')} onFeatures={() => setPage('features')} />
   }
 
+  if (page === 'landing')      return <ImmersiveLanding onEnterApp={() => setPage('chat')} onFeatures={() => setPage('features')} />
   if (page === 'profile')      return <ProfilePage      onBack={() => setPage('chat')} onNav={nav} />
   if (page === 'features')     return <FeaturesPage     onBack={() => setPage('chat')} onChat={() => setPage('chat')} />
   if (page === 'gamification') return <GamificationPage onNav={nav} />
