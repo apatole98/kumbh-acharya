@@ -190,7 +190,15 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  const { message, language = 'hindi', systemPrompt, userId = 'guest' } = req.body || {}
+  const { message, language = 'hindi', systemPrompt, timeSlot = 'pratah', userId = 'guest' } = req.body || {}
+
+  const timeContext = {
+    brahma:    'Current time: Brahma Muhurta (4–6 AM) — holiest time; recommend snan, Gayatri chanting, meditation.',
+    pratah:    'Current time: Pratah (morning 6 AM–12 PM) — Surya puja, Godavari aarti, Ramkund snan, Panchavati darshan.',
+    madhyahna: 'Current time: Madhyahna (afternoon 12–4 PM) — Trimbakeshwar darshan, Brahmagiri trek, Tarpan rituals.',
+    sandhya:   'Current time: Sandhya (evening 4–7 PM) — Deepdan at Godavari ghat, evening aarti, Sandhya Vandanam.',
+    ratri:     'Current time: Ratri (night 7 PM–4 AM) — Shiva time; recommend Mahamrityunjaya, Om Namah Shivaya chanting.',
+  }[timeSlot] || ''
 
   if (!message || typeof message !== 'string' || !message.trim()) {
     return res.status(400).json({ error: 'Message is required' })
@@ -204,7 +212,7 @@ export default async function handler(req, res) {
     const response = await client.messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 600,
-      system: systemPrompt || defaultSystem,
+      system: (systemPrompt || defaultSystem) + (timeContext ? `\n\n${timeContext}` : ''),
       messages: [{ role: 'user', content: message.trim() }],
     })
 
