@@ -126,7 +126,7 @@ function LoginInline({ onClose }) {
 }
 
 /* ── Main Immersive Landing ────────────────────────── */
-export default function ImmersiveLanding({ onFeatures }) {
+export default function ImmersiveLanding({ onFeatures, onEnterApp }) {
   const canvasRef     = useRef(null)
   const stateRef      = useRef({})   // three.js refs
   const frameRef      = useRef(null)
@@ -368,8 +368,8 @@ export default function ImmersiveLanding({ onFeatures }) {
             {/* CTA */}
             {s.cta && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '300px' }}>
-                <button onClick={() => setShowLogin(true)} style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg,#d4af37,#b8962c)', border: 'none', borderRadius: '14px', color: '#0f1419', fontSize: '16px', fontWeight: '900', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 0 40px rgba(212,175,55,0.45)', animation: 'pulseGold 2s ease-in-out infinite' }}>
-                  🙏 Begin Your Journey
+                <button onClick={onEnterApp || (() => setShowLogin(true))} style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg,#d4af37,#b8962c)', border: 'none', borderRadius: '14px', color: '#0f1419', fontSize: '16px', fontWeight: '900', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 0 40px rgba(212,175,55,0.45)', animation: 'pulseGold 2s ease-in-out infinite' }}>
+                  {onEnterApp ? '🕉 Enter the Sanctum' : '🙏 Begin Your Journey'}
                 </button>
                 <button onClick={onFeatures} style={{ width: '100%', padding: '13px', backgroundColor: 'transparent', border: '1px solid rgba(212,175,55,0.35)', borderRadius: '12px', color: '#d4af37', fontSize: '14px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
                   onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.08)'}
@@ -396,10 +396,10 @@ export default function ImmersiveLanding({ onFeatures }) {
           <span style={{ fontSize: '22px' }}>🕉</span>
           <span style={{ color: '#d4af37', fontSize: '16px', fontWeight: '800' }}>Kumbh Acharya</span>
         </div>
-        <button onClick={() => setShowLogin(true)} style={{ backgroundColor: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: '10px', padding: '8px 20px', color: '#d4af37', fontSize: '13px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
+        <button onClick={onEnterApp || (() => setShowLogin(true))} style={{ backgroundColor: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: '10px', padding: '8px 20px', color: '#d4af37', fontSize: '13px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
           onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.22)'}
           onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.12)'}>
-          Login / Sign Up
+          {onEnterApp ? '🕉 Enter Sanctum' : 'Login / Sign Up'}
         </button>
       </div>
 
