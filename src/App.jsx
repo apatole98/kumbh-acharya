@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './components/AuthContext.jsx'
 import { GamificationProvider } from './context/GamificationContext.jsx'
 import { CommunityProvider } from './context/CommunityContext.jsx'
 import LoginPage        from './pages/LoginPage.jsx'
+import ImmersiveLanding from './pages/ImmersiveLanding.jsx'
 import ProfilePage      from './pages/ProfilePage.jsx'
 import FeaturesPage     from './pages/FeaturesPage.jsx'
 import GamificationPage from './pages/GamificationPage.jsx'
@@ -31,7 +32,8 @@ function AppRoutes() {
 
   if (!user) {
     if (page === 'features') return <FeaturesPage onBack={() => setPage('chat')} onChat={() => setPage('chat')} />
-    return <LoginPage onFeatures={() => setPage('features')} />
+    if (page === 'login') return <LoginPage onFeatures={() => setPage('features')} onBack={() => setPage('landing')} />
+    return <ImmersiveLanding onLogin={() => setPage('login')} onFeatures={() => setPage('features')} />
   }
 
   if (page === 'profile')      return <ProfilePage      onBack={() => setPage('chat')} onNav={nav} />
