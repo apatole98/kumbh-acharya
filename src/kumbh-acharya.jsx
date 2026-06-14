@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useAuth } from './components/AuthContext.jsx'
 import { useGamification } from './context/GamificationContext.jsx'
 import BottomNav from './components/BottomNav.jsx'
+import OnboardingTutorial from './components/OnboardingTutorial.jsx'
 
 const FREE_CHAT_LIMIT = 3
 
@@ -272,6 +273,7 @@ export default function KumbhAcharya({ onNav }) {
   const [showMenu, setShowMenu]    = useState(false)
   const [showPaywall, setPaywall]  = useState(false)
   const [showLangs, setShowLangs]  = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(() => !localStorage.getItem('ka_onboarded'))
   const [isPaid, setIsPaid]        = useState(() => user?.isPro || localStorage.getItem('ka_paid') === 'true')
   const [chatsUsed, setChatsUsed]  = useState(() => {
     const d = localStorage.getItem('ka_chats_date')
@@ -444,15 +446,21 @@ export default function KumbhAcharya({ onNav }) {
 
       {/* ═══ FREE COUNTER ═══ */}
       {!isPaid && (
-        <div style={{ background: 'linear-gradient(90deg,#1a1f2e,#252d3d)', borderBottom: '1px solid #334155', padding: '8px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
-          <span style={{ color: '#94a3b8', fontSize: '12px' }}>{lang === 'english' ? 'Free chats today' : 'आज के मुफ्त प्रश्न'}</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ background: remaining > 0 ? 'rgba(212,175,55,0.15)' : 'rgba(239,68,68,0.15)', color: remaining > 0 ? '#d4af37' : '#ef4444', border: `1px solid ${remaining > 0 ? 'rgba(212,175,55,0.4)' : 'rgba(239,68,68,0.4)'}`, borderRadius: '8px', padding: '3px 10px', fontSize: '12px', fontWeight: '700' }}>
-              {remaining}/{FREE_CHAT_LIMIT} {lang === 'english' ? 'left' : 'शेष'}
-            </span>
-            {remaining === 0 && (
-              <button onClick={() => setPaywall(true)} className="btn-gold" style={{ padding: '4px 10px', fontSize: '11px', borderRadius: '7px' }}>Upgrade ⭐</button>
-            )}
+        <div style={{ background: 'linear-gradient(90deg,#1a1f2e,#252d3d)', borderBottom: '1px solid #334155', padding: '8px 16px', flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px' }}>
+            <span style={{ color: '#94a3b8', fontSize: '11px' }}>{lang === 'english' ? '🆓 Free chats today' : '🆓 आज के मुफ्त प्रश्न'}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ color: remaining > 0 ? '#d4af37' : '#ef4444', fontSize: '11px', fontWeight: '700' }}>
+                {remaining}/{FREE_CHAT_LIMIT} {lang === 'english' ? 'left' : 'शेष'}
+              </span>
+              {remaining === 0
+                ? <button onClick={() => setPaywall(true)} className="btn-gold" style={{ padding: '3px 10px', fontSize: '11px', borderRadius: '7px' }}>⭐ Pro</button>
+                : <button onClick={() => setPaywall(true)} style={{ background: 'transparent', border: '1px solid rgba(212,175,55,0.25)', borderRadius: '7px', padding: '2px 8px', color: '#64748b', fontSize: '10px', cursor: 'pointer', fontFamily: 'inherit' }}>Upgrade</button>
+              }
+            </div>
+          </div>
+          <div style={{ height: '4px', backgroundColor: '#252d3d', borderRadius: '2px', overflow: 'hidden' }}>
+            <div style={{ height: '100%', width: `${(remaining / FREE_CHAT_LIMIT) * 100}%`, background: remaining > 1 ? 'linear-gradient(to right, #d4af37, #f59e0b)' : remaining === 1 ? '#f97316' : '#ef4444', borderRadius: '2px', transition: 'width 0.5s ease, background 0.5s ease' }} />
           </div>
         </div>
       )}
@@ -533,6 +541,11 @@ export default function KumbhAcharya({ onNav }) {
 
       {/* ═══ BOTTOM NAV ═══ */}
       <BottomNav page="chat" onNav={onNav} />
+
+      {/* ═══ ONBOARDING ═══ */}
+      {showOnboarding && (
+        <OnboardingTutorial onDone={() => { localStorage.setItem('ka_onboarded', '1'); setShowOnboarding(false) }} />
+      )}
 
       {/* ═══ PAYWALL MODAL ═══ */}
       {showPaywall && (
