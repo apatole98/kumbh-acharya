@@ -15,6 +15,10 @@ import CreatePostPage   from './pages/CreatePostPage.jsx'
 import PostDetailPage   from './pages/PostDetailPage.jsx'
 import MessagesPage     from './pages/MessagesPage.jsx'
 import KumbhAcharya     from './kumbh-acharya.jsx'
+import AboutPage        from './pages/AboutPage.jsx'
+import ContactPage      from './pages/ContactPage.jsx'
+import TermsPage        from './pages/TermsPage.jsx'
+import PrivacyPage      from './pages/PrivacyPage.jsx'
 
 function AppRoutes() {
   const { user, loading } = useAuth()
@@ -33,10 +37,10 @@ function AppRoutes() {
   if (!user) {
     if (page === 'features') return <FeaturesPage onBack={() => setPage('chat')} onChat={() => setPage('chat')} />
     if (page === 'login') return <LoginPage onFeatures={() => setPage('features')} onBack={() => setPage('landing')} />
-    return <ImmersiveLanding onLogin={() => setPage('login')} onFeatures={() => setPage('features')} />
+    return <ImmersiveLanding onLogin={() => setPage('login')} onFeatures={() => setPage('features')} onNav={nav} />
   }
 
-  if (page === 'landing')      return <ImmersiveLanding onEnterApp={() => setPage('chat')} onFeatures={() => setPage('features')} />
+  if (page === 'landing')      return <ImmersiveLanding onEnterApp={() => setPage('chat')} onFeatures={() => setPage('features')} onNav={nav} />
   if (page === 'profile')      return <ProfilePage      onBack={() => setPage('chat')} onNav={nav} />
   if (page === 'features')     return <FeaturesPage     onBack={() => setPage('chat')} onChat={() => setPage('chat')} />
   if (page === 'gamification') return <GamificationPage onNav={nav} />
@@ -47,6 +51,10 @@ function AppRoutes() {
   if (page === 'create-post')  return <CreatePostPage   onBack={() => setPage('community')} onSuccess={() => setPage('community')} />
   if (page === 'post-detail')  return <PostDetailPage   postId={postId} onBack={() => setPage('community')} />
   if (page === 'messages')     return <MessagesPage     onNav={nav} />
+  if (page === 'about')        return <AboutPage        onNav={nav} />
+  if (page === 'contact')      return <ContactPage      onNav={nav} />
+  if (page === 'terms')        return <TermsPage        onNav={nav} />
+  if (page === 'privacy')      return <PrivacyPage      onNav={nav} />
 
   return <KumbhAcharya onNav={nav} />
 }
