@@ -143,6 +143,29 @@ export default function GamificationPage({ onNav }) {
           </div>
         )}
 
+        {/* How it works */}
+        <div style={{ marginBottom: '20px' }}>
+          <div style={{ color: '#d4af37', fontSize: '13px', fontWeight: '700', letterSpacing: '0.8px', marginBottom: '14px' }}>HOW IT WORKS</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {[
+              { icon: '💬', step: '1', title: 'Chat with Kumbh Acharya', desc: 'Every message earns you 10 spiritual points', color: '#d4af37' },
+              { icon: '⚡', step: '2', title: 'Complete Daily Quests', desc: 'Login streaks, chat goals, language exploration', color: '#f59e0b' },
+              { icon: '🏅', step: '3', title: 'Unlock Badges', desc: 'Earn 20+ unique badges for your spiritual journey', color: '#8b5cf6' },
+              { icon: '🏆', step: '4', title: 'Climb the Leaderboard', desc: 'Compete with pilgrims across India', color: '#10b981' },
+              { icon: '💎', step: '5', title: 'Redeem Points', desc: 'Exchange points for Pro subscription perks', color: '#a78bfa' },
+            ].map(({ icon, step, title, desc, color }) => (
+              <div key={step} style={{ display: 'flex', alignItems: 'center', gap: '14px', backgroundColor: '#1a1f2e', border: `1px solid ${color}22`, borderRadius: '12px', padding: '14px 16px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: `${color}18`, border: `1px solid ${color}44`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0 }}>{icon}</div>
+                <div>
+                  <div style={{ color: '#e2e8f0', fontSize: '13px', fontWeight: '700' }}>{title}</div>
+                  <div style={{ color: '#64748b', fontSize: '12px', marginTop: '2px' }}>{desc}</div>
+                </div>
+                <div style={{ marginLeft: 'auto', color: color, fontSize: '18px', fontWeight: '800', flexShrink: 0 }}>#{step}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Points Redemption */}
         <div style={{ backgroundColor: '#1a1228', border: '1px solid rgba(139,92,246,0.3)', borderRadius: '14px', padding: '18px', marginBottom: '8px' }}>
           <div style={{ color: '#a78bfa', fontSize: '13px', fontWeight: '700', letterSpacing: '0.8px', marginBottom: '12px' }}>💜 POINTS REDEMPTION</div>
