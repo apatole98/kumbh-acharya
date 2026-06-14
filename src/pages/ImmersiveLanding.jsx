@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useAuth } from '../components/AuthContext.jsx'
+import Footer from '../components/Footer.jsx'
 
 const SECTIONS = [
   {
@@ -126,7 +127,7 @@ function LoginInline({ onClose }) {
 }
 
 /* ── Main Immersive Landing ────────────────────────── */
-export default function ImmersiveLanding({ onFeatures, onEnterApp }) {
+export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
   const canvasRef     = useRef(null)
   const stateRef      = useRef({})   // three.js refs
   const frameRef      = useRef(null)
@@ -340,7 +341,7 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp }) {
       {/* ── Scrollable sections ── */}
       <div ref={scrollRef} style={{ position: 'relative', zIndex: 10, height: '100dvh', overflowY: 'auto' }}>
         {SECTIONS.map((s, i) => (
-          <section key={i} style={{ height: '100dvh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 24px 80px', textAlign: 'center', position: 'relative' }}>
+          <section key={i} style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 24px 80px', textAlign: 'center', position: 'relative' }}>
 
             {/* Mantra */}
             <div style={{ fontSize: 'clamp(16px, 4vw, 26px)', color: '#d4af37', fontWeight: '700', letterSpacing: '6px', marginBottom: '20px', textShadow: '0 0 30px rgba(212,175,55,0.6)', lineHeight: 1.4, opacity: loaded ? 1 : 0, transition: 'opacity 0.8s ease', animation: 'fadeIn 1.2s ease' }}>
@@ -388,6 +389,7 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp }) {
             )}
           </section>
         ))}
+        <Footer onNav={page => onNav ? onNav(page) : onFeatures && page === 'features' ? onFeatures() : null} />
       </div>
 
       {/* ── Top Nav ── */}
