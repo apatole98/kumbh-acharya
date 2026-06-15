@@ -323,7 +323,7 @@ export default function KumbhAcharya({ onNav }) {
     } catch (err) {
       setMsgs(p => [...p, { id: uid(), role: 'bot', text: `⚠️ Error: ${err.message}` }])
     } finally { setLoading(false) }
-  }, [input, loading, isPaid, chatsUsed, lang, user, trackChat])
+  }, [input, loading, isPaid, chatsUsed, lang, user])
 
   const sendChip = useCallback((chip) => {
     const text = chip.replace(/^[\u{1F300}-\u{1FFFF}\u{2600}-\u{26FF}\s]+/u, '').trim()
@@ -345,7 +345,7 @@ export default function KumbhAcharya({ onNav }) {
         setMsgs(p => [...p, { id: uid(), role: 'bot', text: '🙏 क्षमा करें, कनेक्शन में समस्या है।' }])
       }).finally(() => setLoading(false))
     }, 0)
-  }, [isPaid, chatsUsed, lang, user, trackChat])
+  }, [isPaid, chatsUsed, lang, user])
 
   const onKey   = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }
   const onInput = (e) => { setInput(e.target.value); e.target.style.height = 'auto'; e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px' }
