@@ -19,7 +19,9 @@ import AboutPage        from './pages/AboutPage.jsx'
 import ContactPage      from './pages/ContactPage.jsx'
 import TermsPage        from './pages/TermsPage.jsx'
 import PrivacyPage      from './pages/PrivacyPage.jsx'
-import SinhasthPage     from './pages/SinhasthPage.jsx'
+import SinhasthPage        from './pages/SinhasthPage.jsx'
+import WhyGamificationPage from './pages/WhyGamificationPage.jsx'
+import AIGuidePage          from './pages/AIGuidePage.jsx'
 
 function AppRoutes() {
   const { user, loading } = useAuth()
@@ -36,8 +38,11 @@ function AppRoutes() {
   )
 
   if (!user) {
-    if (page === 'features') return <FeaturesPage onBack={() => setPage('chat')} onChat={() => setPage('chat')} />
-    if (page === 'login') return <LoginPage onFeatures={() => setPage('features')} onBack={() => setPage('landing')} />
+    if (page === 'features')          return <FeaturesPage        onBack={() => setPage('chat')} onChat={() => setPage('chat')} />
+    if (page === 'login')             return <LoginPage           onFeatures={() => setPage('features')} onBack={() => setPage('landing')} />
+    if (page === 'sinhastha')         return <SinhasthPage        onNav={nav} />
+    if (page === 'why-gamification')  return <WhyGamificationPage onNav={nav} />
+    if (page === 'ai-guide')          return <AIGuidePage          onNav={nav} />
     return <ImmersiveLanding onLogin={() => setPage('login')} onFeatures={() => setPage('features')} onNav={nav} />
   }
 
@@ -56,7 +61,9 @@ function AppRoutes() {
   if (page === 'contact')      return <ContactPage      onNav={nav} />
   if (page === 'terms')        return <TermsPage        onNav={nav} />
   if (page === 'privacy')      return <PrivacyPage      onNav={nav} />
-  if (page === 'sinhastha')   return <SinhasthPage     onNav={nav} />
+  if (page === 'sinhastha')        return <SinhasthPage        onNav={nav} />
+  if (page === 'why-gamification') return <WhyGamificationPage onNav={nav} />
+  if (page === 'ai-guide')         return <AIGuidePage          onNav={nav} />
 
   return <KumbhAcharya onNav={nav} />
 }
