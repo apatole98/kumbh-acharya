@@ -16,6 +16,7 @@ import TermsPage        from './pages/TermsPage.jsx'
 import PrivacyPage      from './pages/PrivacyPage.jsx'
 import SinhasthPage     from './pages/SinhasthPage.jsx'
 import AIGuidePage      from './pages/AIGuidePage.jsx'
+import MapPage          from './pages/MapPage.jsx'
 import NotFoundPage     from './pages/NotFoundPage.jsx'
 
 function AppRoutes() {
@@ -37,6 +38,7 @@ function AppRoutes() {
     if (page === 'login')    return <LoginPage    onFeatures={() => setPage('features')} onBack={() => setPage('landing')} />
     if (page === 'sinhastha') return <SinhasthPage onNav={nav} />
     if (page === 'ai-guide')  return <AIGuidePage  onNav={nav} />
+    if (page === 'map')       return <MapPage       onNav={nav} />
     if (page === 'about')     return <AboutPage    onNav={nav} />
     if (page === 'contact')   return <ContactPage  onNav={nav} />
     if (page === 'terms')     return <TermsPage    onNav={nav} />
@@ -57,6 +59,7 @@ function AppRoutes() {
   if (page === 'privacy')     return <PrivacyPage  onNav={nav} />
   if (page === 'sinhastha')   return <SinhasthPage onNav={nav} />
   if (page === 'ai-guide')    return <AIGuidePage  onNav={nav} />
+  if (page === 'map')         return <MapPage       onNav={nav} />
   if (page === 'chat')        return <KumbhAcharya onNav={nav} />
 
   return <NotFoundPage onNav={nav} />
