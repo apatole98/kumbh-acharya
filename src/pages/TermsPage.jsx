@@ -44,8 +44,16 @@ export default function TermsPage({ onNav }) {
           You agree not to use the Service to generate harmful, abusive, or illegal content; to misrepresent yourself or impersonate others; to attempt to extract or reverse-engineer the underlying AI model; or to use automated tools to exceed the stated free usage limits.
         </Section>
 
-        <Section n={6} title="Intellectual Property">
-          All content, branding, and design of Kumbh Acharya is proprietary. Vedic texts, mantras, and traditional knowledge referenced are part of the public domain of Hindu cultural heritage.
+        <Section n={6} title="Intellectual Property Rights">
+          All content on Kumbh Acharya — including but not limited to website design and layout, AI technology and responses, text and graphics, software and source code, brand name and logo, and community features — is the exclusive property of Kumbh Acharya and is protected under international copyright and intellectual property laws.<br /><br />
+          <strong style={{ color: '#e2e8f0' }}>You may NOT:</strong><br />
+          • Copy, reproduce, or distribute any content without written permission<br />
+          • Modify or create derivative works based on our platform<br />
+          • Reverse-engineer or attempt to extract the underlying AI technology<br />
+          • Claim ownership of any Kumbh Acharya intellectual property<br />
+          • Use our branding, name, or logo without prior written consent<br /><br />
+          Vedic texts, mantras, and traditional Hindu knowledge referenced in responses are part of the public domain of sacred cultural heritage. However, our curation, presentation, translation, and AI-generated explanations of such content remain our intellectual property.<br /><br />
+          Violation of these terms will result in immediate account termination and may result in legal action under applicable laws.
         </Section>
 
         <Section n={7} title="Limitation of Liability">
@@ -56,9 +64,21 @@ export default function TermsPage({ onNav }) {
           We reserve the right to update these terms at any time. Continued use of the Service after changes constitutes acceptance of the new terms.
         </Section>
 
-        <Section n={9} title="Contact">
-          For questions about these terms, contact us at namaste@kumbhacharya.com.
+        <Section n={9} title="Contact & Copyright Concerns">
+          For general questions about these terms, contact us at <strong style={{ color: '#d4af37' }}>namaste@kumbhacharya.com</strong><br /><br />
+          For copyright or intellectual property concerns:<br />
+          📧 <strong style={{ color: '#d4af37' }}>legal@kumbhacharya.com</strong><br /><br />
+          We take intellectual property rights seriously and will respond to all valid claims within 5 business days.
         </Section>
+
+        {/* Copyright notice */}
+        <div style={{ marginTop: '32px', padding: '18px 20px', background: 'rgba(139,92,246,0.06)', border: '1px solid rgba(139,92,246,0.2)', borderRadius: '12px', textAlign: 'center' }}>
+          <div style={{ color: '#8b5cf6', fontWeight: '800', fontSize: '13px', marginBottom: '6px' }}>© 2026 Kumbh Acharya. All Rights Reserved.</div>
+          <div style={{ color: '#475569', fontSize: '12px', lineHeight: 1.7 }}>
+            Website design, AI technology, and all content are protected intellectual property.<br />
+            Unauthorized reproduction or distribution is prohibited.
+          </div>
+        </div>
 
         <div style={{ height: '80px' }} />
       </div>
