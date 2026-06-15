@@ -38,9 +38,9 @@ const SECTIONS = [
   },
   {
     mantra:  'ॐ शान्तिः शान्तिः शान्तिः',
-    title:   'Your Sacred Journey',
-    sub:     'Quests • Badges • Community • Leaderboard',
-    story:   'Every question earns you points. Daily quests deepen your knowledge. Badges mark milestones of your unique spiritual path. Join thousands of pilgrims.',
+    title:   'Pilgrim Community',
+    sub:     'Connect • Share • Prepare Together',
+    story:   'Join thousands of pilgrims from across India. Share your Kumbh experiences, find yatra companions, get local tips from Nashik residents, and prepare spiritually as a community.',
     cta:     false,
     color:   0x10b981,
     camZ:    4,
@@ -91,7 +91,7 @@ function LoginInline({ onClose }) {
           onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(139,92,246,0.5)'}>
           <div style={{ textAlign: 'left', flex: 1 }}>
             <div style={{ color: '#a78bfa', fontSize: '13px', fontWeight: '800' }}>🧪 Try Demo (Pro Account)</div>
-            <div style={{ color: '#64748b', fontSize: '11px', marginTop: '2px' }}>1250 pts · 12-day streak · 6 badges</div>
+            <div style={{ color: '#64748b', fontSize: '11px', marginTop: '2px' }}>Pro Member · Nashik Simhastha 2027</div>
           </div>
           <span style={{ color: '#8b5cf6', fontSize: '18px' }}>→</span>
         </button>
