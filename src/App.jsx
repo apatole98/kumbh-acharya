@@ -38,7 +38,7 @@ function AppRoutes() {
   )
 
   if (!user) {
-    if (page === 'features')          return <FeaturesPage        onBack={() => setPage('chat')} onChat={() => setPage('chat')} />
+    if (page === 'features')          return <FeaturesPage        onBack={() => setPage('chat')} onChat={() => setPage('chat')} onNav={nav} />
     if (page === 'login')             return <LoginPage           onFeatures={() => setPage('features')} onBack={() => setPage('landing')} />
     if (page === 'sinhastha')         return <SinhasthPage        onNav={nav} />
     if (page === 'why-gamification')  return <WhyGamificationPage onNav={nav} />
@@ -48,7 +48,7 @@ function AppRoutes() {
 
   if (page === 'landing')      return <ImmersiveLanding onEnterApp={() => setPage('chat')} onFeatures={() => setPage('features')} onNav={nav} />
   if (page === 'profile')      return <ProfilePage      onBack={() => setPage('chat')} onNav={nav} />
-  if (page === 'features')     return <FeaturesPage     onBack={() => setPage('chat')} onChat={() => setPage('chat')} />
+  if (page === 'features')     return <FeaturesPage     onBack={() => setPage('chat')} onChat={() => setPage('chat')} onNav={nav} />
   if (page === 'gamification') return <GamificationPage onNav={nav} />
   if (page === 'quests')       return <QuestsPage       onNav={nav} />
   if (page === 'leaderboard')  return <LeaderboardPage  onNav={nav} />
