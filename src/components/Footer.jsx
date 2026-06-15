@@ -1,4 +1,5 @@
 import React from 'react'
+import SinhasthCountdown from './SinhasthCountdown.jsx'
 
 export default function Footer({ onNav }) {
   const link = (label, page) => (
@@ -13,6 +14,11 @@ export default function Footer({ onNav }) {
   return (
     <footer style={{ backgroundColor: '#0a0d14', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '48px 24px 32px', fontFamily: "'Segoe UI','Noto Sans Devanagari',Arial,sans-serif" }}>
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+
+        {/* Countdown banner */}
+        <div style={{ marginBottom: '36px' }}>
+          <SinhasthCountdown />
+        </div>
 
         {/* Brand row */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '40px', marginBottom: '40px' }}>
@@ -36,6 +42,16 @@ export default function Footer({ onNav }) {
               {link('Gamification', 'gamification')}
               {link('Community', 'community')}
               {link('Leaderboard', 'leaderboard')}
+            </div>
+          </div>
+
+          <div style={{ flex: '1 1 140px' }}>
+            <div style={{ color: '#94a3b8', fontSize: '11px', fontWeight: '700', letterSpacing: '1.5px', marginBottom: '14px' }}>SINHASTHA</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {link('🚩 Sinhastha Guide', 'sinhastha')}
+              {link('Shahi Snan Dates', 'sinhastha')}
+              {link('Sacred Locations', 'sinhastha')}
+              {link('Pilgrim Guide', 'sinhastha')}
             </div>
           </div>
 
