@@ -424,7 +424,9 @@ export default function KumbhAcharya({ onNav }) {
                 </div>
                 {[
                   { label: '🏠 Home / Landing',   action: () => { setShowMenu(false); onNav?.('landing') }, highlight: true },
-                  { label: '🚩 Sinhastha Guide', action: () => { setShowMenu(false); onNav?.('sinhastha') } },
+                  { label: '🚩 Sinhastha Guide',   action: () => { setShowMenu(false); onNav?.('sinhastha') } },
+                  { label: '🤖 AI Guide — How it works', action: () => { setShowMenu(false); onNav?.('ai-guide') } },
+                  { label: '🏆 Why Gamification?',       action: () => { setShowMenu(false); onNav?.('why-gamification') } },
                   { label: '👤 My Profile',    action: () => { setShowMenu(false); onNav?.('profile') } },
                   { label: '⚡ Quests',         action: () => { setShowMenu(false); onNav?.('gamification') } },
                   { label: '👥 Community',     action: () => { setShowMenu(false); onNav?.('community') } },
