@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useCommunity } from '../context/CommunityContext.jsx'
-import { useGamification } from '../context/GamificationContext.jsx'
 
 const TYPES = [
   { id: 'experience', label: 'Experience', icon: '🌺', desc: 'Share your spiritual journey' },
@@ -13,7 +12,6 @@ const SUGGESTED_TAGS = ['shahi-snan', 'triveni', 'mantra', 'ghat', 'prayagraj', 
 
 export default function CreatePostPage({ onBack, onSuccess }) {
   const { createPost } = useCommunity()
-  const { addPoints, unlockBadge } = useGamification()
   const [type, setType]       = useState('experience')
   const [title, setTitle]     = useState('')
   const [content, setContent] = useState('')
@@ -33,8 +31,6 @@ export default function CreatePostPage({ onBack, onSuccess }) {
     setPosting(true)
     await new Promise(r => setTimeout(r, 500))
     createPost({ title: title.trim(), content: content.trim(), type, tags })
-    addPoints(25, 'Created a community post 📝')
-    unlockBadge('first_post')
     setPosting(false)
     onSuccess?.()
   }
