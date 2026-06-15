@@ -21,8 +21,13 @@ const SectionHead = ({ title, sub }) => (
   </div>
 )
 
-export default function FeaturesPage({ onBack, onChat }) {
+export default function FeaturesPage({ onBack, onChat, onNav }) {
   const { user } = useAuth()
+
+  const nav = (page) => {
+    if (page === 'chat') { onChat?.(); return }
+    onNav?.(page)
+  }
 
   const handlePlan = (planId) => {
     if (planId === 'free') {
@@ -130,7 +135,7 @@ export default function FeaturesPage({ onBack, onChat }) {
 
       {/* ── Three Pillars ── */}
       <Section>
-        <ThreePillars onNav={(page) => { if (page === 'chat') onChat?.() }} />
+        <ThreePillars onNav={nav} />
       </Section>
 
       <div style={{ height: '1px', background: 'linear-gradient(to right, transparent, #3a4557, transparent)' }} />
@@ -169,7 +174,7 @@ export default function FeaturesPage({ onBack, onChat }) {
       {/* ── FAQ ── */}
       <Section bg="#111827">
         <SectionHead title="❓ Frequently Asked Questions" sub="Everything you need to know" />
-        <FAQAccordion />
+        <FAQAccordion onNav={nav} />
       </Section>
 
       {/* ── Bottom CTA ── */}
