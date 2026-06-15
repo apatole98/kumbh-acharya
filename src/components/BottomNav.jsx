@@ -4,7 +4,7 @@ const TABS = [
   { id: 'chat',      icon: '🕉',  label: 'Chat'      },
   { id: 'sinhastha', icon: '🚩',  label: 'Sinhastha' },
   { id: 'community', icon: '👥',  label: 'Community' },
-  { id: 'ai-guide',  icon: '🤖',  label: 'AI Guide'  },
+  { id: 'map',       icon: '🗺',  label: 'Map'       },
   { id: 'profile',   icon: '👤',  label: 'Me'        },
 ]
 
