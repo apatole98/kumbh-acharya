@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { useAuth } from '../components/AuthContext.jsx'
-import { useGamification, ALL_BADGES, RARITY_COLORS } from '../context/GamificationContext.jsx'
 import BottomNav from '../components/BottomNav.jsx'
 
 export default function ProfilePage({ onBack, onNav }) {
   const { user, logout, updateUser } = useAuth()
-  const { gami } = useGamification()
   const [editing, setEditing] = useState(false)
   const [form, setForm] = useState({ name: user?.name || '', phone: user?.phone || '' })
   const [saved, setSaved] = useState(false)
@@ -18,9 +16,6 @@ export default function ProfilePage({ onBack, onNav }) {
   }
 
   const initials = user?.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?'
-  const pts     = gami?.points?.total    || 0
-  const streak  = gami?.streak?.current  || 0
-  const myBadges = ALL_BADGES.filter(b => (gami?.badges || []).includes(b.id))
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', backgroundColor: '#0f1419', fontFamily: "'Segoe UI','Noto Sans Devanagari',Arial,sans-serif" }}>
@@ -40,11 +35,11 @@ export default function ProfilePage({ onBack, onNav }) {
       <div style={{ flex: 1, overflowY: 'auto', padding: '24px 20px' }}>
 
         {/* Avatar + Name */}
-        <div className="au" style={{ textAlign: 'center', marginBottom: '24px' }}>
+        <div className="au" style={{ textAlign: 'center', marginBottom: '28px' }}>
           <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'linear-gradient(135deg,#8b5cf6,#d4af37)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px', color: '#fff', fontWeight: '800', margin: '0 auto 12px', boxShadow: '0 0 24px rgba(139,92,246,0.35)' }}>
             {initials}
           </div>
-          <div style={{ fontSize: '20px', fontWeight: '800', color: '#fff', marginBottom: '6px' }}>{user?.name}</div>
+          <div style={{ fontSize: '20px', fontWeight: '800', color: '#fff', marginBottom: '8px' }}>{user?.name}</div>
           <div style={{ display: 'inline-block', backgroundColor: user?.isPro ? 'rgba(212,175,55,0.15)' : 'rgba(100,116,139,0.2)', border: `1px solid ${user?.isPro ? 'rgba(212,175,55,0.5)' : '#334155'}`, color: user?.isPro ? '#d4af37' : '#64748b', borderRadius: '20px', padding: '3px 14px', fontSize: '12px', fontWeight: '700' }}>
             {user?.isPro ? '👑 Pro Member' : '🆓 Free Plan'}
           </div>
@@ -56,41 +51,8 @@ export default function ProfilePage({ onBack, onNav }) {
           </div>
         )}
 
-        {/* Stats Row */}
-        <div className="au1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', marginBottom: '16px' }}>
-          {[
-            { icon: '💎', value: pts.toLocaleString(), label: 'Points' },
-            { icon: '🔥', value: streak,                label: 'Streak' },
-            { icon: '🏅', value: myBadges.length,       label: 'Badges' },
-          ].map(s => (
-            <div key={s.label} style={{ backgroundColor: '#1a1f2e', border: '1px solid #334155', borderRadius: '12px', padding: '14px 10px', textAlign: 'center' }}>
-              <div style={{ fontSize: '20px', marginBottom: '4px' }}>{s.icon}</div>
-              <div style={{ color: '#d4af37', fontSize: '18px', fontWeight: '800', marginBottom: '2px' }}>{s.value}</div>
-              <div style={{ color: '#64748b', fontSize: '10px', fontWeight: '600' }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Badges Preview */}
-        {myBadges.length > 0 && (
-          <div className="au2 card" style={{ marginBottom: '14px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700', letterSpacing: '1px' }}>MY BADGES</div>
-              <button onClick={() => onNav?.('badges')} style={{ backgroundColor: 'transparent', border: 'none', color: '#64748b', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit' }}>See all →</button>
-            </div>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {myBadges.slice(0, 5).map(b => (
-                <div key={b.id} style={{ backgroundColor: `${RARITY_COLORS[b.rarity]}20`, border: `1px solid ${RARITY_COLORS[b.rarity]}40`, borderRadius: '10px', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  <span style={{ fontSize: '16px' }}>{b.icon}</span>
-                  <span style={{ color: RARITY_COLORS[b.rarity], fontSize: '11px', fontWeight: '700' }}>{b.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* Account Details */}
-        <div className="au2 card" style={{ marginBottom: '14px' }}>
+        <div className="au1 card" style={{ marginBottom: '14px' }}>
           <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>Account Details</div>
           {[
             { label: 'Email',        value: user?.email },
@@ -105,7 +67,7 @@ export default function ProfilePage({ onBack, onNav }) {
         </div>
 
         {/* Subscription */}
-        <div className="card" style={{ marginBottom: '14px' }}>
+        <div className="au2 card" style={{ marginBottom: '14px' }}>
           <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>Subscription</div>
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #252d3d' }}>
             <span style={{ color: '#64748b', fontSize: '13px' }}>Plan</span>
