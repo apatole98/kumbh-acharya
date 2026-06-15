@@ -22,6 +22,7 @@ import PrivacyPage      from './pages/PrivacyPage.jsx'
 import SinhasthPage        from './pages/SinhasthPage.jsx'
 import WhyGamificationPage from './pages/WhyGamificationPage.jsx'
 import AIGuidePage          from './pages/AIGuidePage.jsx'
+import NotFoundPage         from './pages/NotFoundPage.jsx'
 
 function AppRoutes() {
   const { user, loading } = useAuth()
@@ -65,7 +66,9 @@ function AppRoutes() {
   if (page === 'why-gamification') return <WhyGamificationPage onNav={nav} />
   if (page === 'ai-guide')         return <AIGuidePage          onNav={nav} />
 
-  return <KumbhAcharya onNav={nav} />
+  if (page === 'chat') return <KumbhAcharya onNav={nav} />
+
+  return <NotFoundPage onNav={nav} />
 }
 
 export default function App() {
