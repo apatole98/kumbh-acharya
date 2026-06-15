@@ -5,57 +5,75 @@ const pillars = [
     icon: '🤖',
     color: '#8b5cf6',
     colorBg: 'rgba(139,92,246,0.08)',
-    colorBorder: 'rgba(139,92,246,0.2)',
+    colorBorder: 'rgba(139,92,246,0.3)',
+    colorGlow: '0 0 40px rgba(139,92,246,0.15)',
     title: 'AI Spiritual Guide',
     subtitle: 'Ancient wisdom, instant answers',
+    tagline: 'Your personal Vedic scholar — 24/7',
     desc: 'Ask any question about Vedic rituals, mantras, pilgrimage routes, or sacred texts — and receive thoughtful, scripture-backed answers in seconds. Available in 5 languages, 24/7.',
+    expanded: 'Kumbh Acharya\'s AI is trained on thousands of Vedic scriptures, Nashik-Trimbakeshwar history, and modern pilgrimage wisdom. Unlike generic chatbots, it understands context — your situation, your language, your beliefs.',
     benefits: [
-      'Personalized mantra recommendations',
-      'Puja vidhi step-by-step guidance',
-      'Kumbh Mela snan timing & ghats',
-      'Sanskrit explanations in your language',
+      'Personalized mantra recommendations by time & purpose',
+      'Puja vidhi step-by-step guidance in your language',
+      'Kumbh Mela snan timing, ghats & crowd safety tips',
+      'Sanskrit shlokas explained simply without losing depth',
+      'Auspicious muhurta & Hindu calendar guidance',
     ],
-    cta: 'Try AI Guide',
-    page: 'chat',
+    stats: ['12L+ Mantras explained', '5 Languages', '24/7 available', '50K+ pilgrims'],
+    cta: 'Explore AI Guide →',
+    page: 'ai-guide',
   },
   {
     icon: '🏆',
     color: '#d4af37',
     colorBg: 'rgba(212,175,55,0.08)',
-    colorBorder: 'rgba(212,175,55,0.2)',
+    colorBorder: 'rgba(212,175,55,0.3)',
+    colorGlow: '0 0 40px rgba(212,175,55,0.12)',
     title: 'Gamified Dharma',
     subtitle: 'Make your spiritual practice a habit',
-    desc: 'Earn Dharma Points for every spiritual conversation, complete quests aligned with sacred festivals, unlock badges, and climb the pilgrim leaderboard — turning learning into a joyful daily ritual.',
+    tagline: 'Earn points. Complete quests. Win rewards.',
+    desc: 'Earn Dharma Points for every spiritual conversation, complete quests aligned with sacred festivals, unlock badges, and climb the pilgrim leaderboard.',
+    expanded: 'Ancient rishis made learning fun through stories and riddles. We brought that spirit to the digital age. Psychology shows gamification increases habit formation by 3x — we use that science to make your daily spiritual practice as addictive as a morning chai.',
     benefits: [
-      'Daily quests tied to real festivals',
-      '40+ spiritual achievement badges',
-      'Pilgrim leaderboard & streaks',
-      'Points → real Kumbh discounts',
+      'Daily quests tied to real Hindu festival calendar',
+      '40+ spiritual achievement badges to unlock',
+      'Weekly leaderboard — compete with pilgrims across India',
+      'Points convert to real Kumbh 2027 discounts (coming soon)',
+      'Family leaderboard — make it a household tradition',
     ],
-    cta: 'Explore Gamification',
-    page: 'gamification',
+    stats: ['40+ Badges', '10K+ Quests done', 'Weekly resets', 'Real rewards soon'],
+    cta: 'Explore Gamification →',
+    page: 'why-gamification',
   },
   {
     icon: '🕌',
     color: '#10b981',
     colorBg: 'rgba(16,185,129,0.08)',
-    colorBorder: 'rgba(16,185,129,0.2)',
+    colorBorder: 'rgba(16,185,129,0.3)',
+    colorGlow: '0 0 40px rgba(16,185,129,0.12)',
     title: 'Pilgrim Community',
     subtitle: 'Journey together, grow together',
+    tagline: 'Find your Kumbh yatra companions',
     desc: 'Connect with fellow pilgrims planning Nashik Simhastha 2027. Share experiences, seek advice, post photos from sacred sites, and build lifelong spiritual friendships.',
+    expanded: 'The Kumbh experience is magnified when shared. Our community brings together pilgrims from every corner of India — find travel companions, get local tips from Nashik residents, share blessings, and support each other on the spiritual path.',
     benefits: [
-      'Forum posts & spiritual discussions',
-      'Direct messaging with pilgrims',
-      'Trip planning & buddy-finding',
+      'Forum posts & deep spiritual discussions',
+      'Direct messaging with fellow pilgrims',
+      'Trip planning & yatra buddy-finding',
       'Share blessings & sacred moments',
+      'Verified community guides from Nashik & Trimbak',
     ],
-    cta: 'Join Community',
+    stats: ['5K+ Members', '89+ Posts daily', '3 Languages', 'Moderated'],
+    cta: 'Join Community →',
     page: 'community',
   },
 ]
 
 export default function ThreePillars({ onNav }) {
+  const [expanded, setExpanded] = useState(null)
   const [hovered, setHovered] = useState(null)
+
+  const toggle = (i) => setExpanded(expanded === i ? null : i)
 
   return (
     <div>
@@ -66,64 +84,119 @@ export default function ThreePillars({ onNav }) {
         <h2 style={{ fontSize: 'clamp(24px,4vw,36px)', fontWeight: '800', color: '#fff', marginBottom: '12px', lineHeight: 1.2 }}>
           Everything you need for<br /><span style={{ color: '#d4af37' }}>your Kumbh journey</span>
         </h2>
-        <p style={{ color: '#64748b', fontSize: '15px', maxWidth: '500px', margin: '0 auto' }}>
-          Three powerful pillars work together to transform how you experience Nashik Simhastha 2027
+        <p style={{ color: '#64748b', fontSize: '14px', maxWidth: '480px', margin: '0 auto' }}>
+          Click any pillar to explore in depth
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-        {pillars.map((p, i) => (
-          <div
-            key={i}
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-            style={{
-              background: hovered === i ? p.colorBg : '#1a1f2e',
-              border: `1px solid ${hovered === i ? p.colorBorder : '#2d3748'}`,
-              borderRadius: '16px',
-              padding: '32px 28px',
-              transition: 'all 0.3s ease',
-              cursor: 'default',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            {/* accent top bar */}
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: `linear-gradient(to right, ${p.color}, transparent)`, opacity: hovered === i ? 1 : 0.3, transition: 'opacity 0.3s' }} />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+        {pillars.map((p, i) => {
+          const isExpanded = expanded === i
+          const isHovered = hovered === i
 
-            <div style={{ fontSize: '40px', marginBottom: '16px' }}>{p.icon}</div>
-            <div style={{ color: p.color, fontSize: '11px', fontWeight: '700', letterSpacing: '1.5px', marginBottom: '8px' }}>{p.subtitle.toUpperCase()}</div>
-            <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#fff', marginBottom: '14px' }}>{p.title}</h3>
-            <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: 1.7, marginBottom: '20px' }}>{p.desc}</p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '28px' }}>
-              {p.benefits.map((b, j) => (
-                <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <span style={{ color: p.color, marginTop: '2px', fontSize: '12px' }}>✓</span>
-                  <span style={{ color: '#cbd5e1', fontSize: '13px' }}>{b}</span>
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={() => onNav?.(p.page)}
+          return (
+            <div
+              key={i}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
               style={{
-                background: hovered === i ? p.color : 'transparent',
-                color: hovered === i ? '#0f1419' : p.color,
-                border: `1px solid ${p.color}`,
-                borderRadius: '8px',
-                padding: '10px 20px',
-                fontSize: '13px',
-                fontWeight: '700',
+                background: isExpanded ? p.colorBg : (isHovered ? 'rgba(255,255,255,0.03)' : '#1a1f2e'),
+                border: `1px solid ${isExpanded || isHovered ? p.colorBorder : '#2d3748'}`,
+                borderRadius: '16px',
+                padding: '28px 24px',
+                transition: 'all 0.3s ease',
                 cursor: 'pointer',
-                transition: 'all 0.2s',
-                width: '100%',
+                position: 'relative',
+                overflow: 'hidden',
+                boxShadow: isHovered || isExpanded ? p.colorGlow : 'none',
+                transform: isHovered && !isExpanded ? 'translateY(-2px)' : 'translateY(0)',
               }}
+              onClick={() => toggle(i)}
             >
-              {p.cta} →
-            </button>
-          </div>
-        ))}
+              {/* top accent bar */}
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: `linear-gradient(to right, ${p.color}, transparent)`, opacity: isExpanded || isHovered ? 1 : 0.3, transition: 'opacity 0.3s' }} />
+
+              {/* header row */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '16px' }}>
+                <div>
+                  <div style={{ fontSize: '36px', marginBottom: '10px' }}>{p.icon}</div>
+                  <div style={{ color: p.color, fontSize: '10px', fontWeight: '700', letterSpacing: '1.5px', marginBottom: '6px' }}>{p.subtitle.toUpperCase()}</div>
+                  <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#fff', margin: 0 }}>{p.title}</h3>
+                </div>
+                <div style={{
+                  width: '28px', height: '28px', borderRadius: '50%',
+                  background: isExpanded ? p.colorBorder : 'rgba(255,255,255,0.05)',
+                  border: `1px solid ${isExpanded ? p.color : '#3a4557'}`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: isExpanded ? p.color : '#64748b',
+                  fontSize: '16px', fontWeight: '300', flexShrink: 0,
+                  transition: 'all 0.25s',
+                  transform: isExpanded ? 'rotate(45deg)' : 'rotate(0deg)',
+                }}>+</div>
+              </div>
+
+              <p style={{ color: '#94a3b8', fontSize: '13px', lineHeight: 1.7, marginBottom: '16px' }}>{p.desc}</p>
+
+              {/* Collapsed: quick benefits */}
+              {!isExpanded && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '20px' }}>
+                  {p.benefits.slice(0, 3).map((b, j) => (
+                    <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                      <span style={{ color: p.color, marginTop: '2px', fontSize: '11px' }}>✓</span>
+                      <span style={{ color: '#64748b', fontSize: '12px' }}>{b}</span>
+                    </div>
+                  ))}
+                  <div style={{ color: '#475569', fontSize: '11px', marginTop: '2px' }}>+ {p.benefits.length - 3} more — click to expand</div>
+                </div>
+              )}
+
+              {/* Expanded: full details */}
+              {isExpanded && (
+                <div style={{ marginBottom: '20px' }}>
+                  <p style={{ color: '#cbd5e1', fontSize: '13px', lineHeight: 1.7, marginBottom: '16px', fontStyle: 'italic', borderLeft: `3px solid ${p.color}`, paddingLeft: '12px' }}>
+                    {p.expanded}
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
+                    {p.benefits.map((b, j) => (
+                      <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                        <span style={{ color: p.color, marginTop: '2px', fontSize: '12px', fontWeight: '700' }}>✓</span>
+                        <span style={{ color: '#cbd5e1', fontSize: '13px' }}>{b}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Stats row */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px', marginBottom: '20px' }}>
+                    {p.stats.map((s, j) => (
+                      <div key={j} style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '8px', padding: '8px 10px', textAlign: 'center' }}>
+                        <div style={{ color: p.color, fontSize: '12px', fontWeight: '700' }}>{s}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <button
+                onClick={(e) => { e.stopPropagation(); onNav?.(p.page) }}
+                style={{
+                  background: isExpanded ? p.color : 'transparent',
+                  color: isExpanded ? '#0f1419' : p.color,
+                  border: `1px solid ${p.color}`,
+                  borderRadius: '8px',
+                  padding: '10px 20px',
+                  fontSize: '13px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  width: '100%',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = p.color; e.currentTarget.style.color = '#0f1419' }}
+                onMouseLeave={e => { e.currentTarget.style.background = isExpanded ? p.color : 'transparent'; e.currentTarget.style.color = isExpanded ? '#0f1419' : p.color }}
+              >
+                {p.cta}
+              </button>
+            </div>
+          )
+        })}
       </div>
     </div>
   )
