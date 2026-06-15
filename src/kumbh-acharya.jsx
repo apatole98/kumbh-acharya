@@ -410,6 +410,7 @@ export default function KumbhAcharya({ onNav }) {
                 {[
                   { label: '🏠 Home / Landing',        action: () => { setShowMenu(false); onNav?.('landing') }, highlight: true },
                   { label: '🚩 Sinhastha Guide',        action: () => { setShowMenu(false); onNav?.('sinhastha') } },
+                  { label: '🗺 Sacred Locations Map',  action: () => { setShowMenu(false); onNav?.('map') } },
                   { label: '🤖 AI Guide — How it works', action: () => { setShowMenu(false); onNav?.('ai-guide') } },
                   { label: '👤 My Profile',             action: () => { setShowMenu(false); onNav?.('profile') } },
                   { label: '👥 Community',              action: () => { setShowMenu(false); onNav?.('community') } },
