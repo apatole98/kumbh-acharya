@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useAuth } from '../components/AuthContext.jsx'
 import Footer from '../components/Footer.jsx'
+import SinhasthCountdown from '../components/SinhasthCountdown.jsx'
 
 const SECTIONS = [
   {
@@ -368,15 +369,28 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
 
             {/* CTA */}
             {s.cta && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '300px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '340px' }}>
+                {/* Countdown */}
+                {i === 0 && (
+                  <div style={{ marginBottom: '4px' }}>
+                    <SinhasthCountdown />
+                  </div>
+                )}
                 <button onClick={onEnterApp || (() => setShowLogin(true))} style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg,#d4af37,#b8962c)', border: 'none', borderRadius: '14px', color: '#0f1419', fontSize: '16px', fontWeight: '900', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 0 40px rgba(212,175,55,0.45)', animation: 'pulseGold 2s ease-in-out infinite' }}>
-                  {onEnterApp ? '🕉 Enter the Sanctum' : '🙏 Begin Your Journey'}
+                  {onEnterApp ? '🕉 Enter the Sanctum' : '🙏 Prepare for Sinhastha 2026'}
                 </button>
-                <button onClick={onFeatures} style={{ width: '100%', padding: '13px', backgroundColor: 'transparent', border: '1px solid rgba(212,175,55,0.35)', borderRadius: '12px', color: '#d4af37', fontSize: '14px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.08)'}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
-                  View Plans & Pricing →
-                </button>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={() => onNav?.('sinhastha')} style={{ flex: 1, padding: '12px', backgroundColor: 'transparent', border: '1px solid rgba(212,175,55,0.35)', borderRadius: '12px', color: '#d4af37', fontSize: '13px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.08)'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+                    🚩 Sinhastha Guide
+                  </button>
+                  <button onClick={onFeatures} style={{ flex: 1, padding: '12px', backgroundColor: 'transparent', border: '1px solid rgba(139,92,246,0.35)', borderRadius: '12px', color: '#a78bfa', fontSize: '13px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(139,92,246,0.08)'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+                    💎 View Plans
+                  </button>
+                </div>
               </div>
             )}
 
