@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../components/AuthContext.jsx'
 import { useCommunity } from '../context/CommunityContext.jsx'
-import { useGamification } from '../context/GamificationContext.jsx'
 import BottomNav from '../components/BottomNav.jsx'
 
 function timeAgo(ts) {
@@ -15,7 +14,6 @@ function timeAgo(ts) {
 export default function MessagesPage({ onNav }) {
   const { user } = useAuth()
   const { msgs, sendMessage } = useCommunity()
-  const { addPoints } = useGamification()
   const [selected, setSelected] = useState(null)
   const [input, setInput] = useState('')
 
@@ -29,7 +27,6 @@ export default function MessagesPage({ onNav }) {
   const handleSend = () => {
     if (!selected || !input.trim()) return
     sendMessage(selected, input)
-    addPoints(5, 'Sent a message ✉️')
     setInput('')
   }
 
