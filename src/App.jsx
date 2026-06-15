@@ -19,6 +19,7 @@ import AboutPage        from './pages/AboutPage.jsx'
 import ContactPage      from './pages/ContactPage.jsx'
 import TermsPage        from './pages/TermsPage.jsx'
 import PrivacyPage      from './pages/PrivacyPage.jsx'
+import SinhasthPage     from './pages/SinhasthPage.jsx'
 
 function AppRoutes() {
   const { user, loading } = useAuth()
@@ -55,6 +56,7 @@ function AppRoutes() {
   if (page === 'contact')      return <ContactPage      onNav={nav} />
   if (page === 'terms')        return <TermsPage        onNav={nav} />
   if (page === 'privacy')      return <PrivacyPage      onNav={nav} />
+  if (page === 'sinhastha')   return <SinhasthPage     onNav={nav} />
 
   return <KumbhAcharya onNav={nav} />
 }
