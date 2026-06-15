@@ -361,12 +361,16 @@ export default function KumbhAcharya({ onNav }) {
 
       {/* ═══ HEADER ═══ */}
       <header style={{ background: '#1a1f2e', borderBottom: '1px solid #334155', padding: '0 16px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, boxShadow: '0 2px 12px rgba(0,0,0,0.3)', zIndex: 10 }}>
-        {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        {/* Logo — tap to go back to landing */}
+        <div onClick={() => onNav?.('landing')} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+          title="Back to Home">
           <span style={{ fontSize: '24px', lineHeight: 1 }}>🕉</span>
           <div>
             <div style={{ color: '#d4af37', fontSize: '15px', fontWeight: '800', letterSpacing: '-0.3px' }}>कुंभ आचार्य</div>
-            {streak > 0 && <div style={{ color: '#ef4444', fontSize: '10px', fontWeight: '700' }}>🔥 {streak}-day streak</div>}
+            {streak > 0
+              ? <div style={{ color: '#ef4444', fontSize: '10px', fontWeight: '700' }}>🔥 {streak}-day streak</div>
+              : <div style={{ color: '#475569', fontSize: '10px' }}>tap to go home</div>
+            }
           </div>
         </div>
 
