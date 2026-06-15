@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { useAuth } from '../components/AuthContext.jsx'
 import Footer from '../components/Footer.jsx'
 import SinhasthCountdown from '../components/SinhasthCountdown.jsx'
+import DownloadModal from '../components/DownloadModal.jsx'
 
 const SECTIONS = [
   {
@@ -134,6 +135,7 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
   const frameRef      = useRef(null)
   const scrollRef     = useRef(null)
   const [section, setSection]       = useState(0)
+  const [showDownload, setShowDownload] = useState(false)
   const [showLogin, setShowLogin]   = useState(false)
   const [loaded, setLoaded]         = useState(false)
 
@@ -412,11 +414,18 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
           <span style={{ fontSize: '22px' }}>🕉</span>
           <span style={{ color: '#d4af37', fontSize: '16px', fontWeight: '800' }}>Kumbh Acharya</span>
         </div>
-        <button onClick={onEnterApp || (() => setShowLogin(true))} style={{ backgroundColor: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: '10px', padding: '8px 20px', color: '#d4af37', fontSize: '13px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
-          onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.22)'}
-          onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.12)'}>
-          {onEnterApp ? '🕉 Enter Sanctum' : 'Login / Sign Up'}
-        </button>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <button onClick={() => setShowDownload(true)} style={{ backgroundColor: 'transparent', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '10px', padding: '8px 14px', color: '#94a3b8', fontSize: '12px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)'; e.currentTarget.style.color = '#d4af37' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; e.currentTarget.style.color = '#94a3b8' }}>
+            📲 Get App
+          </button>
+          <button onClick={onEnterApp || (() => setShowLogin(true))} style={{ backgroundColor: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: '10px', padding: '8px 20px', color: '#d4af37', fontSize: '13px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.22)'}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.12)'}>
+            {onEnterApp ? '🕉 Enter Sanctum' : 'Login / Sign Up'}
+          </button>
+        </div>
       </div>
 
       {/* ── Section dots ── */}
@@ -425,6 +434,11 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
           <button key={i} onClick={() => { scrollRef.current?.scrollTo({ top: i * scrollRef.current.clientHeight, behavior: 'smooth' }) }} style={{ width: section === i ? '6px' : '5px', height: section === i ? '22px' : '5px', backgroundColor: section === i ? '#d4af37' : 'rgba(212,175,55,0.25)', borderRadius: '4px', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.35s ease' }} />
         ))}
       </div>
+
+      {/* ── Download Modal ── */}
+      {showDownload && (
+        <DownloadModal onClose={() => setShowDownload(false)} onStartWeb={onEnterApp || (() => { setShowDownload(false); setShowLogin(true) })} />
+      )}
 
       {/* ── Login Modal ── */}
       {showLogin && (
