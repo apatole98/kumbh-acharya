@@ -40,9 +40,8 @@ export default function Footer({ onNav }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {link('Features & Pricing', 'features')}
               {link('🤖 AI Guide', 'ai-guide')}
-              {link('🏆 Why Gamification?', 'why-gamification')}
-              {link('Community', 'community')}
-              {link('Leaderboard', 'leaderboard')}
+              {link('👥 Community', 'community')}
+              {link('About Us', 'about')}
             </div>
           </div>
 
