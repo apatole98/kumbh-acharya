@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../components/AuthContext.jsx'
 import { useCommunity } from '../context/CommunityContext.jsx'
-import { useGamification } from '../context/GamificationContext.jsx'
 
 const TYPE_COLORS = { experience: '#8b5cf6', tip: '#10b981', question: '#f59e0b', photo: '#3b82f6' }
 
@@ -16,7 +15,6 @@ function timeAgo(ts) {
 export default function PostDetailPage({ postId, onBack }) {
   const { user } = useAuth()
   const { posts, toggleLike, toggleSave, addComment, toggleCommentLike, sendMessage, follows, toggleFollow } = useCommunity()
-  const { addPoints, trackCommunity } = useGamification()
   const [comment, setComment] = useState('')
   const [showMsg, setShowMsg] = useState(false)
   const [msgText, setMsgText] = useState('')
@@ -36,21 +34,17 @@ export default function PostDetailPage({ postId, onBack }) {
   const handleComment = () => {
     if (!comment.trim()) return
     addComment(post.id, comment)
-    addPoints(5, 'Posted a comment 💬')
-    if (!isAuthor) trackCommunity(5, 'Replied to community 💬')
     setComment('')
   }
 
   const handleLike = () => {
     const wasLiked = post.liked
     toggleLike(post.id)
-    if (!wasLiked) addPoints(5, 'Liked a post ❤️')
   }
 
   const handleSendMsg = () => {
     if (!msgText.trim()) return
     sendMessage(post.author.name, msgText)
-    addPoints(5, 'Sent a message ✉️')
     setMsgSent(true)
     setMsgText('')
     setTimeout(() => { setShowMsg(false); setMsgSent(false) }, 2000)
