@@ -361,16 +361,12 @@ export default function KumbhAcharya({ onNav }) {
 
       {/* ═══ HEADER ═══ */}
       <header style={{ background: '#1a1f2e', borderBottom: '1px solid #334155', padding: '0 16px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, boxShadow: '0 2px 12px rgba(0,0,0,0.3)', zIndex: 10 }}>
-        {/* Logo — tap to go back to landing */}
-        <div onClick={() => onNav?.('landing')} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-          title="Back to Home">
+        {/* Logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ fontSize: '24px', lineHeight: 1 }}>🕉</span>
           <div>
             <div style={{ color: '#d4af37', fontSize: '15px', fontWeight: '800', letterSpacing: '-0.3px' }}>कुंभ आचार्य</div>
-            {streak > 0
-              ? <div style={{ color: '#ef4444', fontSize: '10px', fontWeight: '700' }}>🔥 {streak}-day streak</div>
-              : <div style={{ color: '#475569', fontSize: '10px' }}>tap to go home</div>
-            }
+            {streak > 0 && <div style={{ color: '#ef4444', fontSize: '10px', fontWeight: '700' }}>🔥 {streak}-day streak</div>}
           </div>
         </div>
 
@@ -422,6 +418,7 @@ export default function KumbhAcharya({ onNav }) {
                   </span>
                 </div>
                 {[
+                  { label: '🏠 Home / Landing', action: () => { setShowMenu(false); onNav?.('landing') }, highlight: true },
                   { label: '👤 My Profile',    action: () => { setShowMenu(false); onNav?.('profile') } },
                   { label: '⚡ Quests',         action: () => { setShowMenu(false); onNav?.('gamification') } },
                   { label: '👥 Community',     action: () => { setShowMenu(false); onNav?.('community') } },
@@ -429,9 +426,9 @@ export default function KumbhAcharya({ onNav }) {
                   { label: '💎 Plans',          action: () => { setShowMenu(false); onNav?.('features') } },
                 ].map(item => (
                   <button key={item.label} onClick={item.action}
-                    style={{ display: 'block', width: '100%', textAlign: 'left', background: 'transparent', color: '#cbd5e1', border: 'none', padding: '9px 10px', fontSize: '13px', borderRadius: '8px', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 150ms' }}
-                    onMouseEnter={e => { e.currentTarget.style.background = '#252d3d'; e.currentTarget.style.color = '#d4af37' }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#cbd5e1' }}>
+                    style={{ display: 'block', width: '100%', textAlign: 'left', background: item.highlight ? 'rgba(212,175,55,0.08)' : 'transparent', color: item.highlight ? '#d4af37' : '#cbd5e1', border: item.highlight ? '1px solid rgba(212,175,55,0.2)' : '1px solid transparent', padding: '9px 10px', fontSize: '13px', borderRadius: '8px', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 150ms', marginBottom: item.highlight ? '6px' : '0' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = item.highlight ? 'rgba(212,175,55,0.15)' : '#252d3d'; e.currentTarget.style.color = '#d4af37' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = item.highlight ? 'rgba(212,175,55,0.08)' : 'transparent'; e.currentTarget.style.color = item.highlight ? '#d4af37' : '#cbd5e1' }}>
                     {item.label}
                   </button>
                 ))}
