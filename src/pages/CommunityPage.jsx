@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../components/AuthContext.jsx'
 import { useCommunity } from '../context/CommunityContext.jsx'
-import { useGamification } from '../context/GamificationContext.jsx'
 import BottomNav from '../components/BottomNav.jsx'
 
 const TYPE_COLORS = { experience: '#8b5cf6', tip: '#10b981', question: '#f59e0b', photo: '#3b82f6' }
@@ -79,7 +78,6 @@ function FeedCard({ post, onLike, onSave, onOpen }) {
 export default function CommunityPage({ onNav, onCreatePost, onOpenPost }) {
   const { user } = useAuth()
   const { posts, toggleLike, toggleSave } = useCommunity()
-  const { trackCommunity } = useGamification()
   const [filter, setFilter] = useState('Latest')
 
   const FILTERS = ['Latest', 'Trending', 'Saved', 'Q&A', 'Tips']
@@ -97,7 +95,6 @@ export default function CommunityPage({ onNav, onCreatePost, onOpenPost }) {
   const handleLike = (id) => {
     toggleLike(id)
     const post = posts.find(p => p.id === id)
-    if (post && !post.liked) trackCommunity(5, 'Liked a post ❤️')
   }
 
   return (
