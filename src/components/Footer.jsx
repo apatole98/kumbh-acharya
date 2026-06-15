@@ -40,6 +40,7 @@ export default function Footer({ onNav }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {link('Features & Pricing', 'features')}
               {link('🤖 AI Guide', 'ai-guide')}
+              {link('🗺 Sacred Locations Map', 'map')}
               {link('👥 Community', 'community')}
               {link('About Us', 'about')}
             </div>
