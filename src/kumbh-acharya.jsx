@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useAuth } from './components/AuthContext.jsx'
-import { useGamification } from './context/GamificationContext.jsx'
 import BottomNav from './components/BottomNav.jsx'
 import OnboardingTutorial from './components/OnboardingTutorial.jsx'
 
@@ -265,7 +264,6 @@ const uid = () => ++_id
 
 export default function KumbhAcharya({ onNav }) {
   const { user, logout }           = useAuth()
-  const { trackChat, gami }        = useGamification() || {}
   const [msgs, setMsgs]            = useState([])
   const [input, setInput]          = useState('')
   const [lang, setLang]            = useState('hindi')
@@ -296,8 +294,6 @@ export default function KumbhAcharya({ onNav }) {
   }, [])
 
   const remaining = isPaid ? Infinity : Math.max(0, FREE_CHAT_LIMIT - chatsUsed)
-  const streak    = gami?.streak?.current || 0
-  const points    = gami?.points?.total   || 0
   const initials  = user?.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?'
   const activeLang = LANGS.find(l => l.code === lang)
 
@@ -314,7 +310,6 @@ export default function KumbhAcharya({ onNav }) {
     const newUsed = chatsUsed + 1
     setChatsUsed(newUsed)
     localStorage.setItem('ka_chats_used', String(newUsed))
-    trackChat?.(lang, text)
 
     try {
       const res  = await fetch('/api/claude-api', {
@@ -341,7 +336,6 @@ export default function KumbhAcharya({ onNav }) {
       const newUsed = chatsUsed + 1
       setChatsUsed(newUsed)
       localStorage.setItem('ka_chats_used', String(newUsed))
-      trackChat?.(lang, text)
       fetch('/api/claude-api', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, language: lang, systemPrompt: SYS[lang], timeSlot, userId: user?.userId || 'guest' }),
@@ -371,20 +365,11 @@ export default function KumbhAcharya({ onNav }) {
           </button>
           <div>
             <div style={{ color: '#d4af37', fontSize: '15px', fontWeight: '800', letterSpacing: '-0.3px' }}>कुंभ आचार्य</div>
-            {streak > 0 && <div style={{ color: '#ef4444', fontSize: '10px', fontWeight: '700' }}>🔥 {streak}-day streak</div>}
           </div>
         </div>
 
         {/* Right controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {/* Points pill */}
-          {points > 0 && (
-            <div onClick={() => onNav?.('gamification')} style={{ backgroundColor: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.3)', borderRadius: '20px', padding: '4px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <span style={{ fontSize: '11px' }}>💎</span>
-              <span style={{ color: '#d4af37', fontSize: '11px', fontWeight: '700' }}>{points}</span>
-            </div>
-          )}
-
           {/* Language picker */}
           <div style={{ position: 'relative' }} onClick={e => e.stopPropagation()}>
             <button onClick={() => { setShowLangs(v => !v); setShowMenu(false) }}
@@ -423,15 +408,12 @@ export default function KumbhAcharya({ onNav }) {
                   </span>
                 </div>
                 {[
-                  { label: '🏠 Home / Landing',   action: () => { setShowMenu(false); onNav?.('landing') }, highlight: true },
-                  { label: '🚩 Sinhastha Guide',   action: () => { setShowMenu(false); onNav?.('sinhastha') } },
+                  { label: '🏠 Home / Landing',        action: () => { setShowMenu(false); onNav?.('landing') }, highlight: true },
+                  { label: '🚩 Sinhastha Guide',        action: () => { setShowMenu(false); onNav?.('sinhastha') } },
                   { label: '🤖 AI Guide — How it works', action: () => { setShowMenu(false); onNav?.('ai-guide') } },
-                  { label: '🏆 Why Gamification?',       action: () => { setShowMenu(false); onNav?.('why-gamification') } },
-                  { label: '👤 My Profile',    action: () => { setShowMenu(false); onNav?.('profile') } },
-                  { label: '⚡ Quests',         action: () => { setShowMenu(false); onNav?.('gamification') } },
-                  { label: '👥 Community',     action: () => { setShowMenu(false); onNav?.('community') } },
-                  { label: '🏆 Leaderboard',   action: () => { setShowMenu(false); onNav?.('leaderboard') } },
-                  { label: '💎 Plans',          action: () => { setShowMenu(false); onNav?.('features') } },
+                  { label: '👤 My Profile',             action: () => { setShowMenu(false); onNav?.('profile') } },
+                  { label: '👥 Community',              action: () => { setShowMenu(false); onNav?.('community') } },
+                  { label: '💎 Plans & Pricing',        action: () => { setShowMenu(false); onNav?.('features') } },
                 ].map(item => (
                   <button key={item.label} onClick={item.action}
                     style={{ display: 'block', width: '100%', textAlign: 'left', background: item.highlight ? 'rgba(212,175,55,0.08)' : 'transparent', color: item.highlight ? '#d4af37' : '#cbd5e1', border: item.highlight ? '1px solid rgba(212,175,55,0.2)' : '1px solid transparent', padding: '9px 10px', fontSize: '13px', borderRadius: '8px', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 150ms', marginBottom: item.highlight ? '6px' : '0' }}
