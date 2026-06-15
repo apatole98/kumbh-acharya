@@ -24,6 +24,10 @@ html, body, #root { height: 100%; width: 100%; }
   --shadow-lg: 0 8px 32px rgba(0,0,0,0.35);
   --shadow-xl: 0 20px 60px rgba(0,0,0,0.4);
   --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+  --r-sm:  8px;
+  --r-md:  12px;
+  --r-lg:  16px;
+  --r-xl:  20px;
 }
 
 body {
@@ -31,6 +35,9 @@ body {
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar { width: 5px; }
@@ -40,14 +47,28 @@ body {
 
 button { cursor: pointer; font-family: inherit; }
 input, textarea, select { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ─── Prevent horizontal scroll globally ─── */
+* { max-width: 100%; }
+img, canvas, svg { max-width: 100%; }
 
 /* ─── Keyframes ─── */
 @keyframes fadeIn {
   from { opacity: 0; } to { opacity: 1; }
 }
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
 }
 @keyframes float {
   0%,100% { transform: translateY(0); }
@@ -80,54 +101,120 @@ input, textarea, select { font-family: inherit; }
   0%   { transform: scale(0); opacity: 0.6; }
   100% { transform: scale(2.5); opacity: 0; }
 }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes countUp {
+  from { transform: scale(1.1); opacity: 0.6; }
+  to   { transform: scale(1); opacity: 1; }
+}
 
-/* ─── Utility ─── */
+/* ─── Utility — animation ─── */
+/* Short aliases used in some components */
 .au  { animation: slideUp 0.32s var(--ease) both; }
 .au1 { animation: slideUp 0.32s 0.08s var(--ease) both; }
 .au2 { animation: slideUp 0.32s 0.18s var(--ease) both; }
 .au3 { animation: slideUp 0.32s 0.28s var(--ease) both; }
 .ai  { animation: fadeIn  0.28s var(--ease) both; }
-.afl { animation: float 3.5s ease-in-out infinite; }
+.afl { animation: float   3.5s ease-in-out infinite; }
 .agl { animation: goldGlow 2.5s ease-in-out infinite; }
 
-/* ─── Shared Interactive ─── */
-.btn-gold {
+/* Long-form aliases used in some components */
+.anim-fadeup   { animation: slideUp 0.36s var(--ease) both; }
+.anim-fadeup-0 { animation: slideUp 0.36s 0.00s var(--ease) both; }
+.anim-fadeup-1 { animation: slideUp 0.36s 0.10s var(--ease) both; }
+.anim-fadeup-2 { animation: slideUp 0.36s 0.20s var(--ease) both; }
+.anim-fadeup-3 { animation: slideUp 0.36s 0.30s var(--ease) both; }
+.anim-float    { animation: float 3.5s ease-in-out infinite; }
+.anim-glow     { animation: goldGlow 2.5s ease-in-out infinite; }
+.anim-fadein   { animation: fadeIn 0.28s var(--ease) both; }
+.anim-scalein  { animation: scaleIn 0.25s var(--ease) both; }
+.anim-slidedown { animation: slideDown 0.25s var(--ease) both; }
+.anim-spin     { animation: spin 1s linear infinite; }
+
+/* Respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Button classes ─── */
+/* Primary gold — multiple aliases for consistency */
+.btn-gold,
+.cta-btn-gold {
   background: var(--gold); color: #0f1419; border: none;
   font-weight: 700; cursor: pointer; transition: all 200ms var(--ease);
-  border-radius: 10px;
+  border-radius: 10px; font-family: inherit;
 }
-.btn-gold:hover  { background: var(--gold-lt); box-shadow: 0 0 18px var(--gold-glow); transform: scale(1.02); }
-.btn-gold:active { transform: scale(0.97); }
+.btn-gold:hover,
+.cta-btn-gold:hover  { background: var(--gold-lt); box-shadow: 0 0 18px var(--gold-glow); transform: scale(1.02); }
+.btn-gold:active,
+.cta-btn-gold:active { transform: scale(0.97); }
+.btn-gold:focus-visible,
+.cta-btn-gold:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-.btn-outline {
+/* Outline gold */
+.btn-outline,
+.cta-btn-outline {
   background: transparent; color: var(--gold);
   border: 1px solid rgba(212,175,55,0.5);
   font-weight: 600; cursor: pointer; transition: all 200ms var(--ease);
-  border-radius: 10px;
+  border-radius: 10px; font-family: inherit;
 }
-.btn-outline:hover { background: rgba(212,175,55,0.08); border-color: var(--gold); }
+.btn-outline:hover,
+.cta-btn-outline:hover { background: rgba(212,175,55,0.08); border-color: var(--gold); }
+.btn-outline:focus-visible,
+.cta-btn-outline:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
+/* Purple */
 .btn-purple {
   background: var(--purple); color: #fff; border: none;
   font-weight: 600; cursor: pointer; transition: all 200ms var(--ease);
-  border-radius: 10px;
+  border-radius: 10px; font-family: inherit;
 }
 .btn-purple:hover { background: var(--purple-lt); box-shadow: 0 0 14px var(--purple-glow); }
+.btn-purple:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
 
+/* Ghost / subtle */
+.btn-ghost {
+  background: transparent; color: var(--text-3);
+  border: 1px solid var(--border);
+  font-weight: 500; cursor: pointer; transition: all 200ms var(--ease);
+  border-radius: 10px; font-family: inherit;
+}
+.btn-ghost:hover { color: var(--gold); border-color: var(--gold); background: rgba(212,175,55,0.05); }
+
+/* ─── Card ─── */
 .card {
   background: var(--bg-2); border: 1px solid var(--border);
   border-radius: 14px; padding: 20px;
 }
+.card-hover {
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease);
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(212,175,55,0.2);
+}
 
+/* ─── Pricing card ─── */
 .pricing-card { transition: transform 220ms var(--ease), box-shadow 220ms var(--ease); }
 .pricing-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: var(--shadow-xl); }
 
+/* ─── Coming soon card ─── */
 .coming-card { transition: border-color 200ms, background 200ms; }
 .coming-card:hover { border-color: var(--gold) !important; background: #1e2436 !important; }
 
+/* ─── FAQ ─── */
 .faq-btn:hover { background: var(--bg-3) !important; }
 .table-row:hover td { background: var(--bg-3) !important; }
 
+/* ─── Form inputs ─── */
 .input-field {
   background: var(--bg-3); color: var(--text);
   border: 1px solid var(--border); border-radius: 10px;
@@ -139,3 +226,99 @@ input, textarea, select { font-family: inherit; }
   box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
 }
 .input-field::placeholder { color: var(--text-4); }
+
+/* ─── Badge / pill ─── */
+.badge-gold {
+  display: inline-block;
+  background: rgba(212,175,55,0.12);
+  border: 1px solid rgba(212,175,55,0.3);
+  color: var(--gold); font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px;
+}
+.badge-purple {
+  display: inline-block;
+  background: rgba(139,92,246,0.12);
+  border: 1px solid rgba(139,92,246,0.3);
+  color: var(--purple); font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+}
+
+/* ─── Modal backdrop ─── */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.2s var(--ease) both;
+}
+.modal-box {
+  background: var(--bg-2);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  width: 100%; max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: scaleIn 0.25s var(--ease) both;
+  box-shadow: var(--shadow-xl);
+}
+
+/* ─── Section heading divider ─── */
+.section-divider-gold {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.4;
+}
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+/* ─── Skeleton / loading placeholder ─── */
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-2) 25%, var(--bg-3) 50%, var(--bg-2) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 6px;
+}
+
+/* ─── Focus visible global ─── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+button:focus:not(:focus-visible) { outline: none; }
+
+/* ─── Mobile touch targets ─── */
+@media (max-width: 768px) {
+  button, [role="button"] {
+    min-height: 44px;
+  }
+  input, select, textarea {
+    font-size: 16px !important; /* prevent iOS zoom */
+    min-height: 44px;
+  }
+  .modal-box {
+    max-width: 100%;
+    margin: 0;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    padding: 24px 20px;
+    max-height: 92vh;
+  }
+  .modal-backdrop {
+    align-items: flex-end;
+  }
+}
+
+/* ─── Scrollbar on Firefox ─── */
+* { scrollbar-width: thin; scrollbar-color: var(--border) var(--bg); }
+
+/* ─── Print: hide decorative ─── */
+@media print {
+  canvas, .modal-backdrop { display: none !important; }
+}
