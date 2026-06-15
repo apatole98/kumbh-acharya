@@ -38,8 +38,9 @@ export default function Footer({ onNav }) {
           <div style={{ flex: '1 1 140px' }}>
             <div style={{ color: '#94a3b8', fontSize: '11px', fontWeight: '700', letterSpacing: '1.5px', marginBottom: '14px' }}>QUICK LINKS</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              {link('Features', 'features')}
-              {link('Gamification', 'gamification')}
+              {link('Features & Pricing', 'features')}
+              {link('🤖 AI Guide', 'ai-guide')}
+              {link('🏆 Why Gamification?', 'why-gamification')}
               {link('Community', 'community')}
               {link('Leaderboard', 'leaderboard')}
             </div>
