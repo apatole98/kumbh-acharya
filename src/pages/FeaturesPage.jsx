@@ -95,7 +95,7 @@ export default function FeaturesPage({ onBack, onChat, onNav }) {
             <div style={{ height: '3px', width: '80px', backgroundColor: '#d4af37', borderRadius: '2px', animation: 'goldLine 1s 0.5s ease both', animationFillMode: 'both' }} />
           </div>
           <p className="anim-fadeup-1" style={{ color: '#94a3b8', fontSize: '16px', maxWidth: '560px', margin: '0 auto 12px', lineHeight: 1.7 }}>
-            AI spiritual guide + gamified learning + pilgrim community — everything you need to make your Kumbh journey transformative.
+            AI spiritual guide + pilgrim community + Sinhastha 2027 info — everything you need to make your Kumbh journey transformative.
           </p>
           <p className="anim-fadeup-1" style={{ color: '#64748b', fontSize: '13px', maxWidth: '480px', margin: '0 auto 36px', lineHeight: 1.6 }}>
             Join 50,000+ pilgrims who are using Kumbh Acharya to prepare spiritually, stay informed, and connect with their community before Nashik Kumbh 2027.
