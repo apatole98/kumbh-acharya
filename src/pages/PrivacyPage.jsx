@@ -60,9 +60,26 @@ export default function PrivacyPage({ onNav }) {
           Kumbh Acharya is not directed to children under 13. We do not knowingly collect personal information from children under 13.
         </Section>
 
-        <Section n={9} title="Contact">
-          For privacy concerns or data requests: namaste@kumbhacharya.com
+        <Section n={9} title="Data Protection & Intellectual Property">
+          <strong style={{ color: '#e2e8f0' }}>Your data is yours:</strong> Your posts and community contributions remain your property. However, by using Kumbh Acharya, you grant us a non-exclusive license to display your content on the platform, use anonymized and aggregated data to improve AI responses, and use anonymous usage analytics to improve the service.<br /><br />
+          <strong style={{ color: '#e2e8f0' }}>Our intellectual property:</strong> Kumbh Acharya's source code, AI system, design, brand identity, and all original content are protected under copyright law. We do not grant any license to copy, reproduce, or reverse-engineer any part of our platform.<br /><br />
+          <strong style={{ color: '#e2e8f0' }}>Data security:</strong> All data is encrypted in transit (HTTPS). Your account data is stored locally in your browser's localStorage. We do not store conversations on external servers. We follow Indian IT Act 2000 and applicable data protection standards.<br /><br />
+          For data removal requests, contact: <strong style={{ color: '#d4af37' }}>namaste@kumbhacharya.com</strong>
         </Section>
+
+        <Section n={10} title="Contact">
+          For privacy concerns or data requests: <strong style={{ color: '#d4af37' }}>namaste@kumbhacharya.com</strong><br />
+          For copyright or legal concerns: <strong style={{ color: '#d4af37' }}>legal@kumbhacharya.com</strong>
+        </Section>
+
+        {/* Copyright notice */}
+        <div style={{ marginTop: '32px', padding: '18px 20px', background: 'rgba(139,92,246,0.06)', border: '1px solid rgba(139,92,246,0.2)', borderRadius: '12px', textAlign: 'center' }}>
+          <div style={{ color: '#8b5cf6', fontWeight: '800', fontSize: '13px', marginBottom: '6px' }}>© 2026 Kumbh Acharya. All Rights Reserved.</div>
+          <div style={{ color: '#475569', fontSize: '12px', lineHeight: 1.7 }}>
+            Your privacy is our priority. Our platform, design, and AI are protected intellectual property.<br />
+            Unauthorized use or reproduction is prohibited.
+          </div>
+        </div>
 
         <div style={{ height: '80px' }} />
       </div>
