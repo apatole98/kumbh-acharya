@@ -423,7 +423,8 @@ export default function KumbhAcharya({ onNav }) {
                   </span>
                 </div>
                 {[
-                  { label: '🏠 Home / Landing', action: () => { setShowMenu(false); onNav?.('landing') }, highlight: true },
+                  { label: '🏠 Home / Landing',   action: () => { setShowMenu(false); onNav?.('landing') }, highlight: true },
+                  { label: '🚩 Sinhastha Guide', action: () => { setShowMenu(false); onNav?.('sinhastha') } },
                   { label: '👤 My Profile',    action: () => { setShowMenu(false); onNav?.('profile') } },
                   { label: '⚡ Quests',         action: () => { setShowMenu(false); onNav?.('gamification') } },
                   { label: '👥 Community',     action: () => { setShowMenu(false); onNav?.('community') } },
