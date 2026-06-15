@@ -85,7 +85,7 @@ export default function Footer({ onNav }) {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '20px', display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '20px', display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
           <div style={{ color: '#334155', fontSize: '12px' }}>
             © 2026–2027 Kumbh Acharya. जय गोदावरी माँ 🙏
           </div>
@@ -95,6 +95,31 @@ export default function Footer({ onNav }) {
             </div>
             <div style={{ background: 'rgba(212,175,55,0.2)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: '6px', padding: '3px 10px', color: '#d4af37', fontSize: '11px', fontWeight: '700' }}>
               ⭐ PRO: ₹99/month
+            </div>
+          </div>
+        </div>
+
+        {/* Legal copyright strip */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '16px', textAlign: 'center' }}>
+          <div style={{ color: '#475569', fontSize: '11px', lineHeight: '1.8' }}>
+            <div style={{ marginBottom: '4px' }}>
+              <span style={{ color: '#8b5cf6', fontWeight: '700' }}>© 2026 Kumbh Acharya. All Rights Reserved.</span>
+            </div>
+            <div style={{ marginBottom: '4px' }}>
+              Website design, AI technology, and all content are protected intellectual property.
+            </div>
+            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '8px' }}>
+              <button onClick={() => onNav?.('terms')} style={{ background: 'none', border: 'none', color: '#475569', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', padding: 0, transition: 'color 0.15s' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#8b5cf6'}
+                onMouseLeave={e => e.currentTarget.style.color = '#475569'}>Terms of Service</button>
+              <span style={{ color: '#2d3748' }}>·</span>
+              <button onClick={() => onNav?.('privacy')} style={{ background: 'none', border: 'none', color: '#475569', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', padding: 0, transition: 'color 0.15s' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#8b5cf6'}
+                onMouseLeave={e => e.currentTarget.style.color = '#475569'}>Privacy Policy</button>
+              <span style={{ color: '#2d3748' }}>·</span>
+              <a href="mailto:legal@kumbhacharya.com" style={{ color: '#475569', fontSize: '11px', textDecoration: 'none', transition: 'color 0.15s' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#8b5cf6'}
+                onMouseLeave={e => e.currentTarget.style.color = '#475569'}>legal@kumbhacharya.com</a>
             </div>
           </div>
         </div>
