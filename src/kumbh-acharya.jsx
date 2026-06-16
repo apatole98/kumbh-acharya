@@ -266,7 +266,7 @@ export default function KumbhAcharya({ onNav }) {
   const { user, logout }           = useAuth()
   const [msgs, setMsgs]            = useState([])
   const [input, setInput]          = useState('')
-  const [lang, setLang]            = useState('hindi')
+  const [lang, setLang]            = useState(() => localStorage.getItem('ka_lang') || 'hindi')
   const [loading, setLoading]      = useState(false)
   const [showMenu, setShowMenu]    = useState(false)
   const [showPaywall, setPaywall]  = useState(false)
@@ -381,7 +381,7 @@ export default function KumbhAcharya({ onNav }) {
             {showLangs && (
               <div className="ai" style={{ position: 'absolute', right: 0, top: '38px', background: '#1a1f2e', border: '1px solid #334155', borderRadius: '12px', padding: '8px', minWidth: '150px', zIndex: 50, boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 {LANGS.map(l => (
-                  <button key={l.code} onClick={() => { setLang(l.code); setShowLangs(false) }}
+                  <button key={l.code} onClick={() => { setLang(l.code); localStorage.setItem('ka_lang', l.code); setShowLangs(false) }}
                     style={{ display: 'block', width: '100%', textAlign: 'left', background: l.code === lang ? '#252d3d' : 'transparent', color: l.code === lang ? '#d4af37' : '#cbd5e1', border: 'none', padding: '9px 12px', fontSize: '13px', borderRadius: '8px', cursor: 'pointer', transition: 'all 150ms' }}
                     onMouseEnter={e => { if (l.code !== lang) e.currentTarget.style.background = '#252d3d' }}
                     onMouseLeave={e => { if (l.code !== lang) e.currentTarget.style.background = 'transparent' }}>
