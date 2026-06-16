@@ -138,6 +138,13 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
   const [showDownload, setShowDownload] = useState(false)
   const [showLogin, setShowLogin]   = useState(false)
   const [loaded, setLoaded]         = useState(false)
+  const [uiLang, setUiLang] = useState(() => localStorage.getItem('ka_lang') || 'hindi')
+
+  const toggleLang = () => {
+    const next = uiLang === 'hindi' ? 'english' : 'hindi'
+    setUiLang(next)
+    localStorage.setItem('ka_lang', next)
+  }
 
   /* ── Three.js init ── */
   useEffect(() => {
@@ -415,6 +422,13 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
           <span style={{ color: '#d4af37', fontSize: '16px', fontWeight: '800' }}>Kumbh Acharya</span>
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {/* Hindi / English toggle */}
+          <button onClick={toggleLang} style={{ backgroundColor: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: '10px', padding: '6px 12px', color: '#a78bfa', fontSize: '12px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms', display: 'flex', alignItems: 'center', gap: '5px' }}
+            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(139,92,246,0.2)'; e.currentTarget.style.borderColor = 'rgba(139,92,246,0.55)' }}
+            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(139,92,246,0.1)'; e.currentTarget.style.borderColor = 'rgba(139,92,246,0.3)' }}>
+            <span>{uiLang === 'hindi' ? '🇮🇳' : '🇺🇸'}</span>
+            <span>{uiLang === 'hindi' ? 'हिंदी' : 'English'}</span>
+          </button>
           <button onClick={() => setShowDownload(true)} style={{ backgroundColor: 'transparent', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '10px', padding: '8px 14px', color: '#94a3b8', fontSize: '12px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)'; e.currentTarget.style.color = '#d4af37' }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; e.currentTarget.style.color = '#94a3b8' }}>
