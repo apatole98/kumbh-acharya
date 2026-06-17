@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { addRipple } from '../utils/ripple.js'
 
 export default function DownloadModal({ onClose, onStartWeb }) {
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function DownloadModal({ onClose, onStartWeb }) {
           position: 'relative',
           boxShadow: '0 32px 80px rgba(0,0,0,0.7)',
           fontFamily: "'Segoe UI','Noto Sans Devanagari',Arial,sans-serif",
-          animation: 'slideUp 0.25s ease',
+          animation: 'modalIn 0.3s var(--ease)',
         }}
       >
         {/* Top gradient bar */}
@@ -53,13 +54,15 @@ export default function DownloadModal({ onClose, onStartWeb }) {
 
         {/* Web app — primary */}
         <button
+          className="ripple-host press-fx glow-gold-lg"
+          onMouseDown={addRipple}
           onClick={() => { onClose(); onStartWeb?.() }}
           style={{
             width: '100%', background: 'linear-gradient(135deg, #d4af37, #b8962e)', color: '#0f1419',
             border: 'none', borderRadius: '12px', padding: '16px 20px',
             fontSize: '15px', fontWeight: '800', cursor: 'pointer',
             display: 'flex', alignItems: 'center', gap: '12px',
-            marginBottom: '12px', fontFamily: 'inherit', transition: 'all 0.2s',
+            marginBottom: '12px', fontFamily: 'inherit', transition: 'opacity 0.2s, box-shadow 0.3s',
           }}
           onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
           onMouseLeave={e => e.currentTarget.style.opacity = '1'}
@@ -101,7 +104,7 @@ export default function DownloadModal({ onClose, onStartWeb }) {
 
         <div style={{ marginTop: '20px', padding: '14px', background: 'rgba(212,175,55,0.06)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: '10px', textAlign: 'center' }}>
           <div style={{ color: '#d4af37', fontSize: '12px', fontWeight: '700', marginBottom: '4px' }}>🔱 FREE PLAN INCLUDES</div>
-          <div style={{ color: '#94a3b8', fontSize: '12px' }}>3 chats/day • All 5 languages • Gamification • Community</div>
+          <div style={{ color: '#94a3b8', fontSize: '12px' }}>3 chats/day • All 5 languages • Community access</div>
         </div>
       </div>
     </div>
