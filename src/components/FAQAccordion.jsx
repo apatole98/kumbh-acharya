@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react'
+import Reveal from './Reveal.jsx'
+import { addRipple } from '../utils/ripple.js'
 
 const FAQS = [
   {
@@ -22,7 +24,7 @@ const FAQS = [
   {
     category: 'Pricing',
     q: 'What is the difference between Free and Pro plans?',
-    a: 'Free plan: 3 chats per day, all 5 languages, access to all basic features, gamification & community access.\nPro plan (₹99/month): Unlimited chats, priority AI responses, full chat history saved, daily mantra notifications, ritual scheduler, Kundli analysis, and all upcoming features as they launch. Pro is ideal for serious pilgrims who want unrestricted access to Vedic guidance.',
+    a: 'Free plan: 3 chats per day, all 5 languages, full community access, Sinhastha guide and sacred locations map.\nPro plan (₹99/month): Unlimited chats, priority AI responses, full chat history saved, daily mantra notifications, ritual scheduler, Kundli analysis, and all upcoming features as they launch. Pro is ideal for serious pilgrims who want unrestricted access to Vedic guidance.',
     link: 'features',
   },
   {
@@ -44,16 +46,16 @@ const FAQS = [
     link: null,
   },
   {
-    category: 'Gamification',
-    q: 'How does the points and badge system work?',
-    a: 'You earn Dharma Points for: chatting with the AI (+10 pts each), completing daily quests (+25–150 pts), answering community questions (+15 pts), maintaining streaks (bonus multiplier), and special Kumbh event participation. Badges are permanently unlocked achievements — like "Mantra Master" (learn 10 mantras), "Quest Champion" (complete 20 quests), or "Kumbh Pilgrim" (engage daily during Shahi Snan week). Points appear on the weekly leaderboard.',
-    link: 'why-gamification',
+    category: 'Sinhastha 2027',
+    q: 'What safety precautions should I take during Shahi Snan?',
+    a: 'During peak Shahi Snan days, crowds can exceed 1 crore pilgrims at a single ghat. Carry minimal valuables, keep a printed ID with an emergency contact, agree on a meeting point with your group beforehand, stay hydrated, and follow police/volunteer directions at all times. Kumbh Acharya can give you ghat-specific crowd timing tips so you avoid the busiest hours.',
+    link: 'sinhastha',
   },
   {
-    category: 'Gamification',
-    q: 'What are the quests and how often do they reset?',
-    a: 'Quests are spiritual challenges aligned with the Hindu calendar. Daily quests reset every morning — typically one "easy" quest (+25 pts, ~5 min) and one "medium" quest (+50 pts, ~10 min). Weekly quests are bigger challenges tied to that week\'s sacred day. Festival quests appear during Ekadashi, Navratri, Mahashivratri, and Shahi Snan weeks with bonus multipliers. All active quests are visible on the Gamification page.',
-    link: 'gamification',
+    category: 'Getting Started',
+    q: 'Can I save or revisit my past conversations?',
+    a: 'Pro users get full chat history saved across sessions. Free users can scroll back within the current session, but history resets when you clear your browser data since conversations are stored locally on your device, not on our servers.',
+    link: 'features',
   },
   {
     category: 'Community',
@@ -81,13 +83,12 @@ const FAQS = [
   },
 ]
 
-const CATEGORIES = ['All', 'Getting Started', 'Sinhastha 2027', 'AI', 'Gamification', 'Community', 'Pricing']
+const CATEGORIES = ['All', 'Getting Started', 'Sinhastha 2027', 'AI', 'Community', 'Pricing']
 
 const catColors = {
   'Getting Started': '#10b981',
   'Sinhastha 2027': '#d4af37',
   'AI': '#8b5cf6',
-  'Gamification': '#f59e0b',
   'Community': '#06b6d4',
   'Pricing': '#ec4899',
 }
@@ -148,6 +149,8 @@ export default function FAQAccordion({ onNav }) {
         {CATEGORIES.map(c => (
           <button
             key={c}
+            className="ripple-host press-fx"
+            onMouseDown={addRipple}
             onClick={() => { setCat(c); setOpen(null) }}
             style={{
               background: cat === c ? (catColors[c] || '#d4af37') : 'transparent',
@@ -188,12 +191,13 @@ export default function FAQAccordion({ onNav }) {
             </button>
           </div>
         ) : filtered.map((faq, i) => (
-          <div key={`${cat}-${i}-${search}`} style={{
+          <Reveal as="div" key={`${cat}-${i}-${search}`} direction="up" delay={i * 60} style={{
             backgroundColor: '#1a1f2e',
             border: open === i ? `1px solid ${catColors[faq.category] || 'rgba(212,175,55,0.5)'}` : '1px solid #3a4557',
             borderRadius: '12px',
             overflow: 'hidden',
-            transition: 'border-color 0.2s',
+            transition: 'border-color 0.2s, box-shadow 0.3s',
+            boxShadow: open === i ? `0 0 24px ${catColors[faq.category]}22` : 'none',
           }}>
             <button
               onClick={() => setOpen(open === i ? null : i)}
@@ -229,7 +233,7 @@ export default function FAQAccordion({ onNav }) {
             </button>
 
             {open === i && (
-              <div style={{
+              <div className="anim-fadein" style={{
                 padding: '0 20px 18px',
                 color: '#94a3b8', fontSize: '13px', lineHeight: '1.85',
                 borderLeft: `3px solid ${catColors[faq.category] || '#d4af37'}`,
@@ -239,6 +243,8 @@ export default function FAQAccordion({ onNav }) {
                 {faq.link && onNav && (
                   <div style={{ marginTop: '14px' }}>
                     <button
+                      className="ripple-host press-fx"
+                      onMouseDown={addRipple}
                       onClick={() => onNav(faq.link)}
                       style={{
                         background: 'transparent',
@@ -257,7 +263,7 @@ export default function FAQAccordion({ onNav }) {
                 )}
               </div>
             )}
-          </div>
+          </Reveal>
         ))}
       </div>
 
@@ -266,8 +272,10 @@ export default function FAQAccordion({ onNav }) {
         <div style={{ color: '#e2e8f0', fontWeight: '700', fontSize: '15px', marginBottom: '8px' }}>Still have questions?</div>
         <div style={{ color: '#64748b', fontSize: '13px', marginBottom: '16px' }}>Our team responds within 24 hours</div>
         <button
+          className="ripple-host press-fx glow-gold-lg"
+          onMouseDown={addRipple}
           onClick={() => onNav?.('contact')}
-          style={{ background: '#d4af37', color: '#0f1419', border: 'none', borderRadius: '8px', padding: '10px 24px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit' }}
+          style={{ background: '#d4af37', color: '#0f1419', border: 'none', borderRadius: '8px', padding: '10px 24px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'transform 200ms var(--ease)' }}
         >
           📧 Contact Us
         </button>
