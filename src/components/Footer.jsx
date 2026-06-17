@@ -1,12 +1,12 @@
 import React from 'react'
 import SinhasthCountdown from './SinhasthCountdown.jsx'
+import Reveal from './Reveal.jsx'
 
 export default function Footer({ onNav }) {
   const link = (label, page) => (
     <button onClick={() => onNav?.(page)}
-      style={{ background: 'transparent', border: 'none', color: '#64748b', fontSize: '13px', cursor: 'pointer', padding: '4px 0', fontFamily: 'inherit', transition: 'color 200ms' }}
-      onMouseEnter={e => e.currentTarget.style.color = '#d4af37'}
-      onMouseLeave={e => e.currentTarget.style.color = '#64748b'}>
+      className="nav-link"
+      style={{ background: 'transparent', border: 'none', color: '#64748b', fontSize: '13px', cursor: 'pointer', padding: '4px 0', fontFamily: 'inherit', width: 'fit-content' }}>
       {label}
     </button>
   )
@@ -21,7 +21,7 @@ export default function Footer({ onNav }) {
         </div>
 
         {/* Brand row */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '40px', marginBottom: '40px' }}>
+        <Reveal as="div" direction="up" style={{ display: 'flex', flexWrap: 'wrap', gap: '40px', marginBottom: '40px' }}>
           <div style={{ flex: '1 1 220px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
               <span style={{ fontSize: '28px' }}>🕉</span>
@@ -82,7 +82,7 @@ export default function Footer({ onNav }) {
               ))}
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Bottom bar */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '20px', display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
