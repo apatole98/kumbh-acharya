@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Reveal from './Reveal.jsx'
+import { addRipple } from '../utils/ripple.js'
 
 const pillars = [
   {
@@ -95,8 +97,8 @@ export default function ThreePillars({ onNav }) {
           const isHovered = hovered === i
 
           return (
-            <div
-              key={i}
+            <Reveal as="div" key={i} direction="up" delay={i * 120}
+              className="ripple-host"
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
               style={{
@@ -104,13 +106,13 @@ export default function ThreePillars({ onNav }) {
                 border: `1px solid ${isExpanded || isHovered ? p.colorBorder : '#2d3748'}`,
                 borderRadius: '16px',
                 padding: '28px 24px',
-                transition: 'all 0.3s ease',
+                transition: 'background 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease, transform 0.35s ease',
                 cursor: 'pointer',
-                position: 'relative',
                 overflow: 'hidden',
                 boxShadow: isHovered || isExpanded ? p.colorGlow : 'none',
-                transform: isHovered && !isExpanded ? 'translateY(-2px)' : 'translateY(0)',
+                transform: isHovered && !isExpanded ? 'translateY(-8px) scale(1.015)' : 'translateY(0) scale(1)',
               }}
+              onMouseDown={addRipple}
               onClick={() => toggle(i)}
             >
               {/* top accent bar */}
@@ -119,7 +121,7 @@ export default function ThreePillars({ onNav }) {
               {/* header row */}
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '16px' }}>
                 <div>
-                  <div style={{ fontSize: '36px', marginBottom: '10px' }}>{p.icon}</div>
+                  <div className="icon-spin-hover" style={{ fontSize: '36px', marginBottom: '10px' }}>{p.icon}</div>
                   <div style={{ color: p.color, fontSize: '10px', fontWeight: '700', letterSpacing: '1.5px', marginBottom: '6px' }}>{p.subtitle.toUpperCase()}</div>
                   <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#fff', margin: 0 }}>{p.title}</h3>
                 </div>
@@ -176,6 +178,8 @@ export default function ThreePillars({ onNav }) {
               )}
 
               <button
+                className="ripple-host press-fx"
+                onMouseDown={addRipple}
                 onClick={(e) => { e.stopPropagation(); onNav?.(p.page) }}
                 style={{
                   background: isExpanded ? p.color : 'transparent',
@@ -194,7 +198,7 @@ export default function ThreePillars({ onNav }) {
               >
                 {p.cta}
               </button>
-            </div>
+            </Reveal>
           )
         })}
       </div>
