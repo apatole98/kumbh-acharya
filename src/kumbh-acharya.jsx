@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useAuth } from './components/AuthContext.jsx'
 import BottomNav from './components/BottomNav.jsx'
 import OnboardingTutorial from './components/OnboardingTutorial.jsx'
+import { addRipple } from './utils/ripple.js'
 
 const FREE_CHAT_LIMIT = 3
 
@@ -525,7 +526,7 @@ export default function KumbhAcharya({ onNav }) {
           value={input} onChange={onInput} onKeyDown={onKey}
           placeholder={PLACEHOLDER[lang]} rows={1} disabled={loading}
         />
-        <button className="btn-gold" onClick={send} disabled={loading || !input.trim()}
+        <button className="btn-gold ripple-host press-fx" onMouseDown={addRipple} onClick={send} disabled={loading || !input.trim()}
           style={{ width: '46px', height: '46px', flexShrink: 0, borderRadius: '12px', fontSize: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: loading || !input.trim() ? 0.45 : 1, cursor: loading || !input.trim() ? 'not-allowed' : 'pointer', transition: 'all 200ms' }}>
           🙏
         </button>
@@ -559,7 +560,7 @@ export default function KumbhAcharya({ onNav }) {
             </div>
             <div style={{ color: '#d4af37', fontSize: '32px', fontWeight: '800', fontFamily: 'monospace', marginBottom: '4px' }}>₹99</div>
             <div style={{ color: '#64748b', fontSize: '12px', marginBottom: '22px' }}>{lang === 'english' ? 'per month · cancel anytime' : 'प्रति माह · कभी भी रद्द करें'}</div>
-            <button className="btn-gold" onClick={() => { setIsPaid(true); localStorage.setItem('ka_paid', 'true'); setPaywall(false) }}
+            <button className="btn-gold ripple-host press-fx" onMouseDown={addRipple} onClick={() => { setIsPaid(true); localStorage.setItem('ka_paid', 'true'); setPaywall(false) }}
               style={{ width: '100%', padding: '14px', fontSize: '15px', borderRadius: '11px', marginBottom: '10px', animation: 'pulseGold 2s ease-in-out infinite' }}>
               {lang === 'english' ? '🙏 Unlock Now (Demo)' : '🙏 अभी अनलॉक करें (Demo)'}
             </button>
