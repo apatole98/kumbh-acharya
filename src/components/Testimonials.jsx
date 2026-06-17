@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Reveal from './Reveal.jsx'
 
 const testimonials = [
   {
@@ -9,7 +10,7 @@ const testimonials = [
     badge: 'Pro Pilgrim',
     text: 'Kumbh Acharya ne mujhe Trimbakeshwar ki poori vidhi samjhai jo mujhe koi pandit bhi nahi samjha paya tha. Nashik Kumbh 2027 ki taiyari is app ke bina adhoori hai.',
     hindiText: true,
-    stat: '47 Dharma Points earned',
+    stat: '15 questions asked',
   },
   {
     name: 'Priya Mehta',
@@ -19,17 +20,17 @@ const testimonials = [
     badge: 'Spiritual Seeker',
     text: 'I was overwhelmed planning my first Kumbh. The AI guide walked me through every Shahi Snan date, what to carry, which ghat to visit — all in Gujarati! Incredible.',
     hindiText: false,
-    stat: '12-day streak maintained',
+    stat: 'Trip fully planned via AI',
   },
   {
     name: 'Vikram Patil',
     location: 'Pune, Maharashtra',
     avatar: '🔱',
     rating: 5,
-    badge: 'Quest Master',
-    text: 'The gamification feature made me actually consistent with my spiritual practice. I have completed 23 quests, unlocked the "Shiva Devotee" badge, and my kids now compete with me!',
+    badge: 'Daily Devotee',
+    text: 'I ask Kumbh Acharya a question every morning before my puja. It explains the mantras clearly and my kids enjoy learning the meanings too!',
     hindiText: false,
-    stat: '23 quests completed',
+    stat: '40+ days of daily guidance',
   },
   {
     name: 'Anita Joshi',
@@ -49,7 +50,7 @@ const testimonials = [
     badge: 'Sanskrit Scholar',
     text: 'Jo Sanskrit shlokas mujhe school mein samajh nahi aate the, aaj AI Acharya ki madad se unka arth aur mahatva dono pata chal gaya. Sacchi digital gurukul hai yeh!',
     hindiText: true,
-    stat: 'Top 5% on leaderboard',
+    stat: '30+ shlokas explained',
   },
   {
     name: 'Kavitha Nair',
@@ -86,7 +87,7 @@ export default function Testimonials() {
       </div>
 
       {/* Featured testimonial */}
-      <div style={{
+      <Reveal as="div" direction="scale" className="glow-gold-lg" style={{
         background: 'linear-gradient(135deg, #1a1f2e 0%, #12172a 100%)',
         border: '1px solid rgba(212,175,55,0.2)',
         borderRadius: '20px',
@@ -123,7 +124,7 @@ export default function Testimonials() {
             📊 {t.stat}
           </div>
         </div>
-      </div>
+      </Reveal>
 
       {/* Dots */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '32px' }}>
@@ -148,8 +149,8 @@ export default function Testimonials() {
       {/* Grid preview */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
         {testimonials.slice(0, 3).map((t, i) => (
-          <div
-            key={i}
+          <Reveal as="div" key={i} direction="up" delay={i * 100}
+            className="card-hover"
             onClick={() => setActive(i)}
             style={{
               background: active === i ? 'rgba(212,175,55,0.06)' : '#1a1f2e',
@@ -157,7 +158,6 @@ export default function Testimonials() {
               borderRadius: '12px',
               padding: '16px',
               cursor: 'pointer',
-              transition: 'all 0.2s',
             }}
           >
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '10px' }}>
@@ -170,7 +170,7 @@ export default function Testimonials() {
             <p style={{ color: '#64748b', fontSize: '12px', lineHeight: 1.6 }}>
               "{t.text.slice(0, 90)}..."
             </p>
-          </div>
+          </Reveal>
         ))}
       </div>
 
@@ -182,10 +182,10 @@ export default function Testimonials() {
           { num: '12 Lakh+', label: 'Mantras Explained' },
           { num: '5', label: 'Languages Supported' },
         ].map((s, i) => (
-          <div key={i}>
+          <Reveal as="div" key={i} direction="scale" delay={i * 90}>
             <div style={{ fontSize: '24px', fontWeight: '800', color: '#d4af37' }}>{s.num}</div>
             <div style={{ color: '#64748b', fontSize: '12px', marginTop: '4px' }}>{s.label}</div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </div>
