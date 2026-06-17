@@ -315,6 +315,83 @@ button:focus:not(:focus-visible) { outline: none; }
   }
 }
 
+/* ─── Scroll reveal system ─── */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal-up    { transform: translateY(36px); }
+.reveal-down  { transform: translateY(-36px); }
+.reveal-left  { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
+.reveal-scale { transform: scale(0.88); }
+.reveal-visible {
+  opacity: 1;
+  transform: translate(0,0) scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ─── Ripple effect (paired with utils/ripple.js addRipple) ─── */
+.ripple-host { position: relative; overflow: hidden; }
+.ripple-span {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 70%);
+  pointer-events: none;
+  transform: scale(0);
+  animation: rippleExpand 0.6s var(--ease) forwards;
+}
+@keyframes rippleExpand {
+  to { transform: scale(1); opacity: 0; }
+}
+
+/* ─── Gradient text ─── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--purple-lt) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* ─── Nav link underline animation ─── */
+.nav-link {
+  position: relative; transition: color 200ms var(--ease);
+}
+.nav-link::after {
+  content: ''; position: absolute; left: 0; bottom: -4px;
+  width: 0; height: 2px;
+  background: linear-gradient(to right, var(--gold), var(--purple-lt));
+  transition: width 250ms var(--ease);
+}
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+.nav-link:hover { color: var(--gold); }
+
+/* ─── Icon micro-interactions ─── */
+.icon-spin-hover { display: inline-block; transition: transform 400ms var(--ease); }
+*:hover > .icon-spin-hover { transform: rotate(18deg) scale(1.12); }
+
+/* ─── Click feedback (press) ─── */
+.press-fx { transition: transform 150ms var(--ease); }
+.press-fx:active { transform: scale(0.94); }
+
+/* ─── Success checkmark pop ─── */
+@keyframes checkPop {
+  0%   { transform: scale(0) rotate(-20deg); opacity: 0; }
+  60%  { transform: scale(1.25) rotate(8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.anim-check { animation: checkPop 0.5s var(--ease) both; }
+
+/* ─── Layered glow shadow utility ─── */
+.glow-gold-lg {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 1px rgba(212,175,55,0.15), 0 0 40px rgba(212,175,55,0.18);
+}
+.glow-purple-lg {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 1px rgba(139,92,246,0.15), 0 0 40px rgba(139,92,246,0.18);
+}
+
 /* ─── Scrollbar on Firefox ─── */
 * { scrollbar-width: thin; scrollbar-color: var(--border) var(--bg); }
 
