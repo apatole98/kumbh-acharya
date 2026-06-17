@@ -4,6 +4,7 @@ import { useAuth } from '../components/AuthContext.jsx'
 import Footer from '../components/Footer.jsx'
 import SinhasthCountdown from '../components/SinhasthCountdown.jsx'
 import DownloadModal from '../components/DownloadModal.jsx'
+import { addRipple } from '../utils/ripple.js'
 
 const SECTIONS = [
   {
@@ -359,7 +360,7 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
             </div>
 
             {/* Title */}
-            <h1 style={{ fontSize: 'clamp(36px, 9vw, 80px)', fontWeight: '900', color: '#fff', lineHeight: 1.05, marginBottom: '12px', textShadow: '0 4px 32px rgba(0,0,0,0.7)', letterSpacing: '-1px' }}>
+            <h1 className={i === 0 ? 'text-gradient' : ''} style={{ fontSize: 'clamp(36px, 9vw, 80px)', fontWeight: '900', color: i === 0 ? undefined : '#fff', lineHeight: 1.05, marginBottom: '12px', textShadow: i === 0 ? 'none' : '0 4px 32px rgba(0,0,0,0.7)', letterSpacing: '-1px', animation: 'slideUp 0.7s var(--ease) both' }}>
               {s.title}
             </h1>
 
@@ -385,18 +386,20 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
                     <SinhasthCountdown />
                   </div>
                 )}
-                <button onClick={onEnterApp || (() => setShowLogin(true))} style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg,#d4af37,#b8962c)', border: 'none', borderRadius: '14px', color: '#0f1419', fontSize: '16px', fontWeight: '900', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 0 40px rgba(212,175,55,0.45)', animation: 'pulseGold 2s ease-in-out infinite' }}>
+                <button className="ripple-host press-fx" onMouseDown={addRipple} onClick={onEnterApp || (() => setShowLogin(true))} style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg,#d4af37,#b8962c)', border: 'none', borderRadius: '14px', color: '#0f1419', fontSize: '16px', fontWeight: '900', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 0 40px rgba(212,175,55,0.45)', animation: 'pulseGold 2s ease-in-out infinite', transition: 'box-shadow 250ms var(--ease)' }}
+                  onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 60px rgba(212,175,55,0.7)'}
+                  onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 40px rgba(212,175,55,0.45)'}>
                   {onEnterApp ? '🕉 Enter the Sanctum' : '🙏 Prepare for Sinhastha 2026'}
                 </button>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  <button onClick={() => onNav?.('sinhastha')} style={{ flex: 1, padding: '12px', backgroundColor: 'transparent', border: '1px solid rgba(212,175,55,0.35)', borderRadius: '12px', color: '#d4af37', fontSize: '13px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
-                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.08)'}
-                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+                  <button className="ripple-host press-fx" onMouseDown={addRipple} onClick={() => onNav?.('sinhastha')} style={{ flex: 1, padding: '12px', backgroundColor: 'transparent', border: '1px solid rgba(212,175,55,0.35)', borderRadius: '12px', color: '#d4af37', fontSize: '13px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
+                    onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.08)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                    onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.transform = 'translateY(0)' }}>
                     🚩 Sinhastha Guide
                   </button>
-                  <button onClick={onFeatures} style={{ flex: 1, padding: '12px', backgroundColor: 'transparent', border: '1px solid rgba(139,92,246,0.35)', borderRadius: '12px', color: '#a78bfa', fontSize: '13px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
-                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(139,92,246,0.08)'}
-                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+                  <button className="ripple-host press-fx" onMouseDown={addRipple} onClick={onFeatures} style={{ flex: 1, padding: '12px', backgroundColor: 'transparent', border: '1px solid rgba(139,92,246,0.35)', borderRadius: '12px', color: '#a78bfa', fontSize: '13px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
+                    onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(139,92,246,0.08)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                    onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.transform = 'translateY(0)' }}>
                     💎 View Plans
                   </button>
                 </div>
@@ -423,18 +426,18 @@ export default function ImmersiveLanding({ onFeatures, onEnterApp, onNav }) {
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           {/* Hindi / English toggle */}
-          <button onClick={toggleLang} style={{ backgroundColor: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: '10px', padding: '6px 12px', color: '#a78bfa', fontSize: '12px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms', display: 'flex', alignItems: 'center', gap: '5px' }}
+          <button className="ripple-host press-fx" onMouseDown={addRipple} onClick={toggleLang} style={{ backgroundColor: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: '10px', padding: '6px 12px', color: '#a78bfa', fontSize: '12px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms', display: 'flex', alignItems: 'center', gap: '5px' }}
             onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(139,92,246,0.2)'; e.currentTarget.style.borderColor = 'rgba(139,92,246,0.55)' }}
             onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(139,92,246,0.1)'; e.currentTarget.style.borderColor = 'rgba(139,92,246,0.3)' }}>
             <span>{uiLang === 'hindi' ? '🇮🇳' : '🇺🇸'}</span>
             <span>{uiLang === 'hindi' ? 'हिंदी' : 'English'}</span>
           </button>
-          <button onClick={() => setShowDownload(true)} style={{ backgroundColor: 'transparent', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '10px', padding: '8px 14px', color: '#94a3b8', fontSize: '12px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
+          <button className="ripple-host press-fx" onMouseDown={addRipple} onClick={() => setShowDownload(true)} style={{ backgroundColor: 'transparent', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '10px', padding: '8px 14px', color: '#94a3b8', fontSize: '12px', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)'; e.currentTarget.style.color = '#d4af37' }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; e.currentTarget.style.color = '#94a3b8' }}>
             📲 Get App
           </button>
-          <button onClick={onEnterApp || (() => setShowLogin(true))} style={{ backgroundColor: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: '10px', padding: '8px 20px', color: '#d4af37', fontSize: '13px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
+          <button className="ripple-host press-fx" onMouseDown={addRipple} onClick={onEnterApp || (() => setShowLogin(true))} style={{ backgroundColor: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: '10px', padding: '8px 20px', color: '#d4af37', fontSize: '13px', fontWeight: '700', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 200ms' }}
             onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.22)'}
             onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.12)'}>
             {onEnterApp ? '🕉 Enter Sanctum' : 'Login / Sign Up'}
